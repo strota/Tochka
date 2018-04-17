@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Таймер</title>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <link rel="stylesheet" type="text/css" href="second_time.css">
+    </head>
+    <body>
+        <form name="idform">
+            <input type="button" id="button_start" value="Запуск" onclick="setTime()" class="form_input">
+            <input type="button" value="Сброс" onclick="deleteTime()" class="form_input second">
+        </form>
+        <div id="r"></div>
+        <div class="border"></div>
+        <div class="basic"></div>
+        <progress max="60" value="0" id="demo-progress-bar"></progress>
+        <script type="text/javascript">
+            function setTime() {
+                var line = $("#r").html();
+                document.getElementById('button_start').disabled = true;
+                var counter = 0;
+                migInt = setInterval(function() {
+                    counter++;
+                    document.getElementById( 'demo-progress-bar' ).value = counter;
+                    if( counter == 60 ) {
+                        clearInterval( timer );
+                    }
+                    if (counter == 5) {
+                        document.getElementById( 'demo-progress-bar' ).style.background = 'red';
+                    }
+                }, 1000);
+            }
+            function deleteTime() {
+                clearTimeout(migInt);
+                document.getElementById( 'demo-progress-bar' ).value = 0;
+                document.getElementById('button_start').disabled = false;
+            }
+        </script>
+    </body>
+</html>
