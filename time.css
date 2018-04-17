@@ -1,0 +1,71 @@
+.form_input
+{
+    color: white;
+    padding: .5em 2em;
+    outline: none;
+    border-width: 2px 0;
+    border-style: solid none;
+    border-color: #DCDCDC #000 #C0C0C0;
+    border-radius: 6px;
+    font-size: 15px;
+    background: linear-gradient(#D3D3D3, #C0C0C0) #808080;
+    transition: 0.2s;
+    margin-left: 50px;
+}
+
+.count_c
+{
+    font-size: 150px;
+}
+
+body
+{
+    margin: 180px 0 0 450px;
+}
+
+progress
+{
+    border-radius: 10px;
+    height: 20px; 
+    width: 400px;
+}
+
+progress::-webkit-progress-bar
+{
+    background: rgb(211, 211, 211);
+    border-radius: 10px;
+    height: 20px;
+    width: 400px;
+}
+
+progress::-webkit-progress-value
+{
+    /* /* background-color: #00FEFD; * */
+    background: #00FEFD;
+    border-radius: 10px;
+    height: 20px;
+    width: 400px;
+    animation: sky 10s infinite linear;
+} 
+
+.border
+{
+    width: 360px;
+    height: 20px;
+    outline: 2px solid #000;
+    background: #fefcea; /* Для старых браузров */
+    background: linear-gradient(to right, #fefcea, #f1da36);
+    border: 1px solid #333;
+}
+body > div
+{
+    display: inline-block;
+}
+
+.basic
+{
+    background: red;
+    width: 30px;
+    height: 20px;
+    margin-left: 
+}
