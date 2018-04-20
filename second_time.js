@@ -1,11 +1,16 @@
 function setTime() {
     var computedStyle = getComputedStyle(document.getElementById('border-length')).width;
-    var input_time = document.forms["idform"].elements["input"].value
+    var input_time = document.forms["idform"].elements["input"].value;
+    var length = Number((computedStyle).substr(0, computedStyle.length - 2));
+    var reg = /\d*/;
+    if (input_time.match(reg) == '' & input_time != '') {
+        document.forms["idform"].elements["input"].value = '';
+        clearTime(migInt);
+    }
     if (input_time == '') {
         input_time = 60;
     }
     document.getElementById('button_start').disabled = true;
-    var length = Number((computedStyle).substr(0, computedStyle.length - 2));
     var yellow_flag = Math.floor(length / 2);
     var orange_flag = Math.floor(length / 4) * 3;
     var red_flag = Math.floor(length / 8) * 7;
