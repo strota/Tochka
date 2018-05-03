@@ -1,0 +1,25 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "example app",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chart.js": "^2.7.2",
+    "chartist": "^0.11.0",
+    "ejs": "^2.5.9",
+    "express": "^4.16.3",
+    "json": "^9.0.6",
+    "mongodb": "^2.2.33"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "example",
+    "app"
+  ],
+  "author": "Tanya",
+  "license": "ISC"
+}

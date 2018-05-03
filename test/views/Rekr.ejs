@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+<% include header.ejs %>
+<div>
+    Добро пожаловать в Рекрутинг!
+</div>
+<table id="Rekr_first_table">
+    <tbody>
+    <tr>
+        <td>Дата</td>
+        <td><input type="text" value="09.01-12.01"></td>
+    </tr>
+    <tr>
+        <td>Процент людей, сдавших аттестацию после стажировки</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Норма</td>
+        <td>90%</td>
+    </tr>
+    </tbody>
+</table>
+<form>
+    <input type="button" value="Добавить столбец" onclick="correction('Rekr_first_table')">
+</form>
+
+<table id="Rekr_second_table">
+    <tbody>
+    <tr>
+        <td>Ежемесячный процент закрытия вакансий</td>
+        <td>ОО</td>
+        <td>Оперо</td>
+        <td>ОСКС</td>
+        <td>ОПК</td>
+    </tr>
+    <tr>
+        <td>Факт</td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Недобор</td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>План</td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+    </tr>
+    </tbody>
+</table>
+<% include adding_function.ejs %>
+</body>
+</html>

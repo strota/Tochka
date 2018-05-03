@@ -1,0 +1,14 @@
+<script>
+    function correction(file_name) {
+        var tbody = document.getElementById(file_name).getElementsByTagName("TBODY")[0];
+        console.log(tbody);
+        var value = tbody.getElementsByTagName('tr');
+        console.log(value);
+        console.log('OK!')
+        for (var i = 0; i < value.length; i++) {
+            console.log(value[i]);
+            var new_value = value[i].appendChild(document.createElement('td'));
+            new_value.appendChild(document.createElement('input'));
+        }
+    }
+</script>

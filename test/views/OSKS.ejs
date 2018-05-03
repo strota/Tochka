@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+</head>
+<body>
+<% include header.ejs %>
+<div>
+    Добро пожаловать в ОСКС!
+</div>
+<table id="OSKS_first_table">
+    <tbody>
+    <tr>
+        <td>Дата</td>
+        <td><input type="text" value="Январь"></td>
+    </tr>
+    <tr>
+        <td>Решено</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Всего</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Решено в моменте</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Цель</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Всего обращений</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Процент</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Решено JIRA</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Не решено</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Не решено новые</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Реакция > 1 часа</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Реакция < 1 часа</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Реакция < 1 часа%</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Реакция > 1 часа%</td>
+        <td><input type="text"></td>
+    </tr>
+    </tbody>
+</table>
+<form>
+    <input type="button" value="Добавить столбец" onclick="correction('OSKS_first_table')">
+</form>
+<% include adding_function.ejs %>
+
+<div class="container-chart">
+    <div class="chart2 ct-chart ct-golden-section"></div>
+</div>
+
+<script>
+    new Chartist.Bar('.ct-chart', {
+        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+        series: [
+            [800000, 1200000, 1400000, 1300000],
+            [200000, 400000, 500000, 300000],
+            [100000, 200000, 400000, 600000]
+        ]
+    }, {
+        stackBars: true,
+        axisY: {
+            labelInterpolationFnc: function(value) {
+                return (value / 1000) + 'k';
+            }
+        }
+    }).on('draw', function(data) {
+        if(data.type === 'bar') {
+            data.element.attr({
+                style: 'stroke-width: 30px'
+            });
+        }
+    });
+</script>
+</body>
+</html>

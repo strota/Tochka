@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+<% include header.ejs %>
+<div>
+    Добро пожаловать в СЗК!
+</div>
+
+<table id="SZK_first_table">
+    <tbody>
+    <tr>
+        <td>Даты</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Лояльность</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Money Back</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Норма</td>
+        <td><input type="text"></td>
+    </tr>
+    </tbody>
+</table>
+
+<form>
+    <input type="button" value="Добавить столбец" onclick="correction('SZK_first_table')">
+</form>
+
+<table id="SZK_second_table">
+    <tbody>
+    <tr>
+        <td>Дата</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>% за 24часа</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Норма</td>
+        <td><input type="text"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+<form>
+    <input type="button" value="Добавить столбец" onclick="correction('SZK_second_table')">
+</form>
+
+<% include adding_function.ejs %>
+</body>
+</html>

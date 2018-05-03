@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <script type="text/javascript" src="side.js"></script>
+</head>
+<body>
+<% include header.ejs %>
+<div>
+    Добро пожаловать!
+</div>
+<select id="name">
+    <option label="Выберите круг" value="1" selected>--</option>
+    <option>Оперо</option>
+    <option>КС</option>
+    <option>ВЭД</option>
+    <option>Онлайн офис</option>
+    <option>СВС</option>
+    <option>ОПК</option>
+    <option>ОСКС</option>
+    <option>СЗК</option>
+    <option>Рекрутинг</option>
+</select>
+<input type="text" onclick="save()">
+<form>
+    <input type="button" onclick="go()" value="Далее">
+</form>
+<script>
+    function go() {
+        var value = document.getElementById("name").value;
+        if (value === '1') {
+            alert('Вы не выбрали круг');
+            return
+        }
+        document.location.href = "http://localhost:3000/circle/" + value;
+
+    }
+
+    function save() {
+
+    }
+</script>
+</body>
+</html>

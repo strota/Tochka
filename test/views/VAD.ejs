@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <script src="path/to/Chart.min.js"></script>
+</head>
+<body>
+<% include header.ejs %>
+<div>
+    Добро пожаловать!
+</div>
+
+<table id="VAD_first_table">
+    <tbody>
+    <tr>
+        <td>Даты</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>> 1 минуты</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Не дозвонились</td>
+        <td><input type="text"></td>
+    </tr>
+    </tbody>
+</table>
+
+<form>
+    <input type="button" value="Добавить столбец" onclick="correction('VAD_first_table')">
+</form>
+
+<table id="VAD_second_table">
+    <tbody>
+    <tr>
+        <td>Даты</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Среднее время ответа в чате</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Потолок</td>
+        <td><input type="text"></td>
+    </tr>
+    </tbody>
+</table>
+
+<form>
+    <input type="button" value="Добавить столбец" onclick="correction('VAD_second_table')">
+</form>
+
+<% include adding_function.ejs %>
+
+
+
+<div class="chart">
+    <div class="ct-chart ct-golden-section"></div>
+</div>
+
+<script>
+    var chart = new Chartist.Line('.ct-chart', {
+        series: [
+            {
+                name: 'series-1',
+                data: [
+                    {x: new Date(143134652600), y: 53},
+                    {x: new Date(143234652600), y: 40},
+                    {x: new Date(143340052600), y: 45},
+                    {x: new Date(143366652600), y: 40},
+                    {x: new Date(143410652600), y: 20},
+                    {x: new Date(143508652600), y: 32},
+                    {x: new Date(143569652600), y: 18},
+                    {x: new Date(143579652600), y: 11}
+                ]
+            },
+            {
+                name: 'series-2',
+                data: [
+                    {x: new Date(143134652600), y: 53},
+                    {x: new Date(143234652600), y: 35},
+                    {x: new Date(143334652600), y: 30},
+                    {x: new Date(143384652600), y: 30},
+                    {x: new Date(143568652600), y: 10}
+                ]
+            }
+        ]
+    });
+</script>
+</body>
+</html>

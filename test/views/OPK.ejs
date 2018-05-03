@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+<% include header.ejs %>
+<div>
+    Добро пожаловать в ОПК!
+</div>
+<table id="OPK_first_table">
+<tbody>
+<tr>
+    <td>Месяц</td>
+    <td><input type="text" value="Декабрь"></td>
+</tr>
+<tr>
+    <td>Общая конверсия ОПК (min 75%)</td>
+    <td><input type="text"></td>
+</tr>
+<tr>
+    <td>Общая конверсия КЭП (min 45%)</td>
+    <td><input type="text"></td>
+</tr>
+<tr>
+    <td>min ОРС</td>
+    <td><input type="text"></td>
+</tr>
+<tr>
+    <td>min КЭП</td>
+    <td><input type="text"></td>
+</tr>
+<tr>
+    <td>% обращений в ОО от отправленных в работу до встречи с МРК (ОРС)</td>
+    <td><input type="text"></td>
+</tr>
+<tr>
+    <td>% обращений в ОО от отправленных в работу до встречи с МРК (КЭП)</td>
+    <td><input type="text"></td>
+</tr>
+</tbody>
+</table>
+<form>
+    <input type="button" value="Добавить столбец" onclick="correction('OPK_first_table')">
+</form>
+
+<table id="OPK_second_table">
+    <tbody>
+    <tr>
+        <td>Даты</td>
+        <td><input type="text" value="09.01- 12.01"></td>
+    </tr>
+    <tr>
+        <td>Среднее время реакции ОРС</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Среднее время реакции КЭП</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Min</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Max</td>
+        <td><input type="text"></td>
+    </tr>
+    <tr>
+        <td>Поступило заявок всего</td>
+        <td><input type="text"></td>
+    </tr>
+    </tbody>
+</table>
+<form>
+    <input type="button" value="Добавить столбец" onclick="correction('OPK_second_table')">
+</form>
+<% include adding_function.ejs %>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Красивые диаграммы | Юрий Немец</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="css/reset.css"> -->
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+</head>
+<body>
+<!-- График -->
+<div class="container-chart">
+    <div class="chart2 ct-chart ct-golden-section"></div>
+</div>
+
+<script>
+    new Chartist.Line('.chart2', {
+        labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май'],
+        series: [
+            [3, 3, 2, 6, 9],
+            [2, 1, 3.5, 3, 8],
+            [3, 7, 2, 1, 3]
+        ]
+    }, {
+        fullWidth: true,
+        chartPadding: {
+            right: 50
+        }
+    });
+</script>
+</body>
+</html>
