@@ -3,12 +3,27 @@
         var tbody = document.getElementById(file_name).getElementsByTagName("TBODY")[0];
         console.log(tbody);
         var value = tbody.getElementsByTagName('tr');
-        console.log(value);
+        // console.log(value);
         console.log('OK!')
+        console.log(tbody.rows.length);
+        console.log(tbody.rows[0].cells.length);
+        var lines = 1;
         for (var i = 0; i < value.length; i++) {
             console.log(value[i]);
             var new_value = value[i].appendChild(document.createElement('td'));
-            new_value.appendChild(document.createElement('input'));
+            var input = document.createElement('input')
+            var id = file_name + '_' + tbody.rows[0].cells.length + '_';
+            if (lines != tbody.rows.length) {
+                id += lines;
+                lines = lines + 1;
+            }
+            else {
+                console.log(id);
+                id += lines;
+                lines = 0;
+            }
+            input.setAttribute( "name", id );
+            new_value.appendChild(input);
         }
     }
 </script>

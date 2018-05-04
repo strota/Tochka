@@ -108,6 +108,10 @@ app.get('/circle/%D0%A0%D0%B5%D0%BA%D1%80%D1%83%D1%82%D0%B8%D0%BD%D0%B3', functi
     res.render('Rekr');
 })
 
+app.get('/register', function (req, res) {
+    res.render('register');
+})
+
 // app.listen(3000);
 
 MongoClient.connect('mongodb://127.0.0.1:27017/diagrams', function (err, database) {
@@ -128,6 +132,48 @@ app.get('/artists', function (req, res) {
         res.send(docs);
     })
 })
+
+
+var urlencodedParser = bodyParser.urlencoded({extended: false});
+
+app.use(express.static(__dirname + "/views"));
+
+app.post("/register", urlencodedParser, function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    console.log(request.body);
+    response.render('register');
+    // response.send(`${request.body.userName} - ${request.body.userAge}`);
+});
+
+app.post("/VAD", urlencodedParser, function (request, response) {
+    console.log(request.body);
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("VAD_first_table");
+    var user = request.body;
+
+    // collection.findOne({'_id': '5aeb1c8611848d2624bd1aba'}, function(err, doc){
+    //
+    //     console.log(doc);
+    // });
+    collection.findOne(function(err, doc){
+
+        console.log(doc);
+        db.close();
+    });
+    // var result = collection.find();
+    // console.log(result);
+
+    collection.insertOne(user, function(err, result){
+        if(err){
+            return console.log(err);
+        }
+        console.log(result.ops);
+        db.close();
+    });
+    response.render('VAD');
+});
+
+
 //
 // app.post('/artists', function (req, res) {
 //     var artist = {
