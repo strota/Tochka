@@ -5,61 +5,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 var MongoClient = require('mongodb').MongoClient;
 var db;
+const mongoose = require('mongoose');
+
+mongoose.Promise = global.Promise;
 
 app.set('view engine', 'ejs');
 
-var artists = [
-    {
-        id: 1,
-        name: 'Metallica'
-    },
-    {
-        id: 2,
-        name: 'Iron Maiden'
-    },
-    {
-        id: 3,
-        name: 'Deep Purple'
-    }
-];
-app.get('/artists', function (req, res) {
-    db.collection('artists').find().toArray(function (err, docs) {
-        if (err) {
-            console.log(err);
-            return res.sendStatus(500);
-        }
-        res.send(docs);
-    })
-})
-
-app.post('/artists', function (req, res) {
-    var artist = {
-        name: req.body.name
-    };
-
-    db.collection('artists').insert(artist, (err, result) => {
-        if (err) {
-            console.log(err);
-            return res.sendStatus(500);
-        }
-        res.send(artist);
-    })
-})
-
-app.put('/artists/:id', function (req, res) {
-    var artist = artists.find(function (artist) {
-        return artist.id === Number(req.params.id)
-    });
-    artist.name = req.body.name;
-    res.send(artist);
-})
-
-app.delete('/artists/:id', function (req, res) {
-    artists = artists.filter(function (artist) {
-        return artist.id !== Number(req.params.id)
-    })
-    res.sendStatus(200);
-})
 
 app.get('/', function (req, res) {
     res.render('index');
@@ -70,47 +21,23 @@ app.get('/diagrams', function (req, res) {
 })
 
 app.get('/circle/%D0%92%D0%AD%D0%94', function (req, res) {
+    // console.log('Ты тут была');
+    // var collection = db.collection("VAD_first_table");
+    // collection.find().forEach(function(doc) {
+    //     console.log('И тут была');
+    //     console.log(doc);
+    //     call_two_table('VAD', collection, res, doc, doc._id);
+    // });
+    //
+    // var second_collection = db.collection("VAD_second_table");
+    // second_collection.find().forEach(function(doc) {
+    //     console.log('И тут была');
+    //     call_table('VAD', collection, res, doc, doc._id);
+    // });
+    // res.render('VAD', { array_value: ['0'], arr: ['0'] });
     res.render('VAD');
 })
 
-
-app.get('/circle/%D0%9E%D0%BF%D0%B5%D1%80%D0%BE', function (req, res) {
-    res.render('Opero');
-})
-//%D0%9A%D0%A1
-
-app.get('/circle/%D0%9A%D0%A1', function (req, res) {
-    res.render('KS');
-})
-//%D0%9E%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD%20%D0%BE%D1%84%D0%B8%D1%81
-
-app.get('/circle/%D0%9E%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD%20%D0%BE%D1%84%D0%B8%D1%81', function (req, res) {
-    res.render('Online-ofice');
-})
-
-app.get('/circle/%D0%A1%D0%92%D0%A1', function (req, res) {
-    res.render('SVS');
-})
-
-app.get('/circle/%D0%9E%D0%9F%D0%9A', function (req, res) {
-    res.render('OPK');
-})
-
-app.get('/circle/%D0%9E%D0%A1%D0%9A%D0%A1', function (req, res) {
-    res.render('OSKS');
-})
-
-app.get('/circle/%D0%A1%D0%97%D0%9A', function (req, res) {
-    res.render('SZK');
-})
-
-app.get('/circle/%D0%A0%D0%B5%D0%BA%D1%80%D1%83%D1%82%D0%B8%D0%BD%D0%B3', function (req, res) {
-    res.render('Rekr');
-})
-
-app.get('/register', function (req, res) {
-    res.render('register');
-})
 
 // app.listen(3000);
 
@@ -123,69 +50,159 @@ MongoClient.connect('mongodb://127.0.0.1:27017/diagrams', function (err, databas
 })
 
 
-app.get('/artists', function (req, res) {
-    db.collection('artists').find().toArray(function (err, docs) {
-        if (err) {
-            console.log(err);
-            return res.sendStatus(500);
-        }
-        res.send(docs);
-    })
-})
-
 
 var urlencodedParser = bodyParser.urlencoded({extended: false});
 
 app.use(express.static(__dirname + "/views"));
 
-app.post("/register", urlencodedParser, function (request, response) {
-    if(!request.body) return response.sendStatus(400);
-    console.log(request.body);
-    response.render('register');
-    // response.send(`${request.body.userName} - ${request.body.userAge}`);
-});
 
 app.post("/VAD", urlencodedParser, function (request, response) {
-    console.log(request.body);
     if(!request.body) return response.sendStatus(400);
-    var collection = db.collection("VAD_first_table");
+    var collection = db.collection("VAD_table");
     var user = request.body;
-
-    // collection.findOne({'_id': '5aeb1c8611848d2624bd1aba'}, function(err, doc){
-    //
-    //     console.log(doc);
-    // });
-    collection.findOne(function(err, doc){
-
+    collection = table_definition(user, collection, 'VAD');
+    collection.find().forEach(function(doc) {
         console.log(doc);
-        db.close();
+        call_two_table('VAD', response, doc);
     });
-    // var result = collection.find();
-    // console.log(result);
-
-    collection.insertOne(user, function(err, result){
-        if(err){
-            return console.log(err);
-        }
-        console.log(result.ops);
-        db.close();
-    });
-    response.render('VAD');
+    response.render("VAD");
 });
 
 
-//
-// app.post('/artists', function (req, res) {
-//     var artist = {
-//         name: req.body.name
-//     };
-//
-//     db.collection('artists').insert(artist, (err, result) => {
-//         if (err) {
-//             console.log(err);
-//             return res.sendStatus(500);
-//         }
-//         res.send(artist);
-//     })
-// })
+app.get('/circle/%D0%9A%D0%A1', function (req, res) {
+    console.log('Ты тут была');
+    var collection = db.collection("KS_first_table");
+    collection.find().forEach(function(doc) {
+        call_table('KS', res, doc);
+    });
+});
 
+app.post("/KS", urlencodedParser, function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("KS_first_table");
+    var user = request.body;
+    collection.update({'_id': 'KS_first_table'}, {'_id': 'KS_first_table', user});
+
+    collection.find().forEach(function(doc) {
+        call_table('KS', response, doc);
+    });
+});
+
+
+
+app.get('/circle/%D0%9E%D0%BF%D0%B5%D1%80%D0%BE', function (req, res) {
+    res.render('Opero');
+    // var collection = db.collection("Opero_first_table");
+    // collection.find().forEach(function(doc) {
+    //     call_table('Opero', res, doc);
+    // });
+});
+
+app.post("/Opero", urlencodedParser, function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("Opero_first_table");
+    var user = request.body;
+    console.log('Сейчас ты в POST')
+    collection.insert({'_id': 'Opero_first_table'});
+    //
+    //
+    // collection.update({'_id': 'KS_first_table'}, {'_id': 'KS_first_table', user});
+
+    collection.find().forEach(function(doc) {
+        call_table('Opero', response, doc);
+    });
+});
+
+
+app.get('/circle/%D0%9E%D0%A1%D0%9A%D0%A1', function (req, res) {
+    res.render('OSKS');
+})
+
+app.post("/OSKS", urlencodedParser, function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("OSKS_first_table");
+    var user = request.body;
+    console.log('Сейчас ты в POST')
+    collection.insert({'_id': 'OSKS_first_table'});
+    //
+    //
+    // collection.update({'_id': 'KS_first_table'}, {'_id': 'KS_first_table', user});
+
+    collection.find().forEach(function(doc) {
+        call_table('OSKS', response, doc);
+    });
+});
+
+
+
+function call_table(adress, res, value) {
+    var line = '';
+    var dictionary = value['user'];
+    var arr = [];
+    for (var key in dictionary) {
+        arr.push(key);
+    }
+    var array_value = [];
+    for (var value in arr) {
+        line += dictionary[arr[value]] + ' ';
+        array_value.push(dictionary[arr[value]]);
+    }
+    console.log(arr);
+    console.log(array_value);
+    res.render(adress, { array_value: array_value, arr: arr });
+}
+
+function call_two_table(adress, res, value) {
+    console.log('Ты зашла в call_two_table');
+    var arr = [];
+    var final = {};
+    for (var key in value)
+    {
+        if (key != '_id') {
+            var arr = [];
+            console.log(key);
+            console.log(value[key]);
+            for (var new_key in value[key]) {
+                arr.push(new_key);
+            }
+            var array_value = [];
+            for (var i in arr) {
+                console.log(i);
+                console.log()
+                array_value.push(value[key[i]]);
+            }
+            console.log(arr);
+            console.log(array_value);
+        }
+    }
+
+
+    // res.render(adress, { array_value: array_value, arr: arr });
+    // res.render('VAD');
+    // res.render(adress, { array_value: array_value, arr: arr, id: id });
+}
+
+function table_definition(table_body, collection, name_page) {
+    var first_table;
+    var second_table;
+    collection.find().forEach(function(doc) {
+        first_table = doc[name_page + '_first_table'];
+        second_table = doc[name_page + '_second_table'];
+    });
+    setTimeout(function() {
+        var ids = name_page + '_table';
+        if ((Object.keys(table_body)[0]).indexOf('first') !== -1) {
+            collection.update({'_id': ids}, {
+                '_id': ids, 'VAD_first_table': table_body,
+                'VAD_second_table': second_table
+            });
+        }
+        else {
+            collection.update({'_id': ids}, {
+                '_id': ids, 'VAD_first_table': first_table,
+                'VAD_second_table': table_body
+            });
+        }
+    }, 1000);
+    return collection;
+}

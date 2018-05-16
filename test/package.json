@@ -10,7 +10,8 @@
     "ejs": "^2.5.9",
     "express": "^4.16.3",
     "json": "^9.0.6",
-    "mongodb": "^2.2.33"
+    "mongodb": "^2.2.33",
+    "mongoose": "^5.0.17"
   },
   "devDependencies": {},
   "scripts": {

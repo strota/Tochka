@@ -4,27 +4,30 @@
     <meta charset="UTF-8">
     <title>Test</title>
     <script type="text/javascript" src="side.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
 <% include header.ejs %>
-<div>
-    Добро пожаловать!
+<div class="welcome">
+    <div class="text welcome_text">
+        Добро пожаловать!
+    </div>
+    <select id="name" class="input_circle">
+        <option label="Выберите круг" value="1" selected>--</option>
+        <option>Оперо</option>
+        <option>КС</option>
+        <option>ВЭД</option>
+        <option>Онлайн офис</option>
+        <option>СВС</option>
+        <option>ОПК</option>
+        <option>ОСКС</option>
+        <option>СЗК</option>
+        <option>Рекрутинг</option>
+    </select>
+    <form>
+        <input type="button" class="button_circle" onclick="go()" value="Далее">
+    </form>
 </div>
-<select id="name">
-    <option label="Выберите круг" value="1" selected>--</option>
-    <option>Оперо</option>
-    <option>КС</option>
-    <option>ВЭД</option>
-    <option>Онлайн офис</option>
-    <option>СВС</option>
-    <option>ОПК</option>
-    <option>ОСКС</option>
-    <option>СЗК</option>
-    <option>Рекрутинг</option>
-</select>
-<form>
-    <input type="button" onclick="go()" value="Далее">
-</form>
 <script>
     function go() {
         var value = document.getElementById("name").value;

@@ -3,37 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <title>Test</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="table_style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
 <body>
 <% include header.ejs %>
-<div>
-    Добро пожаловать в КС!
-</div>
-<table id="KS_first_table">
-    <tbody>
+<% include base_style.ejs%>
+
+<form action="/KS" method="post">
+    <table id="KS_first_table" class="table">
+        <colgroup>
+            <col style="background:#bec2d4;">
+        </colgroup>
+        <tbody>
+        <% var count = 0;
+        var count_line = 1;
+        %>
         <tr>
             <td>Даты</td>
-            <td><input type="text" value="09.01. - 12.01"></td>
-            <td><input type="text" value="15.01-19.01"></td>
-            <td><input type="text" value="22.01-26.01"></td>
-        </tr>
-        <tr>
+            <% array_value.forEach(function (item) {
+            if (count % (array_value.length / 3) == 0 && count != 0) {%>
+        </tr><tr>
+            <% if (count_line == 1) { %>
             <td>Среднее время ответа в чате</td>
-            <td><input type="text" value="0:03:01"></td>
-            <td><input type="text" value="0:02:51"></td>
-            <td><input type="text" value="0:02:40"></td>
-        </tr>
-        <tr>
+            <% count_line += 1;
+            } else { %>
             <td>Потолок</td>
-            <td><input type="text" value="0:01:00"></td>
-            <td><input type="text" value="0:01:00"></td>
-            <td><input type="text" value="0:01:00"></td>
-        </tr>
-    </tbody>
-</table>
-<form>
-    <input type="button" value="Добавить столбец" onclick="correction('KS_first_table')">
+            <% }} %>
+            <td><input type="text" class="input_base" name=<%= arr[count] %> value=<%= item %>></td>
+            <% count += 1 }); %>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" class="button_circle" value="Сохранить таблицу">
 </form>
+<br>
+<form>
+    <input type="button" class="button_circle" value="Добавить столбец" onclick="correction('KS_first_table')">
+</form>
+<style>
+    .button_circle
+    {
+        padding: 10px 30px;
+        margin: 0px 20px;
+        border-radius: 30px;
+        font-size: 90%;
+        box-shadow: 0 16px 32px 0 rgba(0,40,120,.35);
+    }
+    .button_circle:hover {
+        box-shadow: 0 0 0 0 rgba(0,40,120,0);
+        background-position: 0 0;
+    }
+
+    .chartHTML div
+    {
+        font: 10px Sans-Serif;
+        background-color: blue;
+        text-align: right;
+        padding: 3px;
+        margin: 1px;
+        color: white;
+    }
+</style>
 <% include adding_function.ejs %>
+
+
+<!--<div class="chartHTML"></div>-->
+
+<!--<canvas id="myChart"></canvas>-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js">-->
+    <!--var ctx = document.getElementById('myChart').getContext('2d');-->
+    <!--var chart = new Chart(ctx, {-->
+        <!--// The type of chart we want to create-->
+        <!--type: 'line',-->
+
+        <!--// The data for our dataset-->
+        <!--data: {-->
+            <!--labels: ["January", "February", "March", "April", "May", "June", "July"],-->
+            <!--datasets: [{-->
+                <!--label: "My First dataset",-->
+                <!--backgroundColor: 'rgb(255, 99, 132)',-->
+                <!--borderColor: 'rgb(255, 99, 132)',-->
+                <!--data: [0, 10, 5, 2, 20, 30, 45],-->
+            <!--}]-->
+        <!--},-->
+
+        <!--// Configuration options go here-->
+        <!--options: {}-->
+    <!--});-->
+<!--</script>-->
+
+<!--<canvas id="myChart"></canvas>-->
+
+
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<div id="chartdiv"></div>
+
+<style>
+    #chartdiv
+    {
+        width: 50%;
+        height: 250px;
+    }
+</style>
+
+<script>
+    var chart = AmCharts.makeChart("chartdiv", {
+        "type": "serial",
+        "theme": "light",
+        "legend": {
+            "equalWidths": false,
+            "useGraphSettings": true,
+            "valueAlign": "left",
+            "valueWidth": 120
+        },
+        "dataProvider": [{
+            "date": "2012-01-01",
+            "distance": 227,
+            "townName": "New York",
+            "townName2": "New York",
+            "townSize": 25,
+            "latitude": 40.71,
+            "duration": 408
+        }, {
+            "date": "2012-01-02",
+            "distance": 371,
+            "townName": "Washington",
+            "townSize": 14,
+            "latitude": 38.89,
+            "duration": 482
+        }, {
+            "date": "2012-01-03",
+            "distance": 433,
+            "townName": "Wilmington",
+            "townSize": 6,
+            "latitude": 34.22,
+            "duration": 562
+        }, {
+            "date": "2012-01-04",
+            "distance": 345,
+            "townName": "Jacksonville",
+            "townSize": 7,
+            "latitude": 30.35,
+            "duration": 379
+        }, {
+            "date": "2012-01-05",
+            "distance": 480,
+            "townName": "Miami",
+            "townName2": "Miami",
+            "townSize": 10,
+            "latitude": 25.83,
+            "duration": 501
+        }, {
+            "date": "2012-01-06",
+            "distance": 386,
+            "townName": "Tallahassee",
+            "townSize": 7,
+            "latitude": 30.46,
+            "duration": 443
+        }, {
+            "date": "2012-01-07",
+            "distance": 348,
+            "townName": "New Orleans",
+            "townSize": 10,
+            "latitude": 29.94,
+            "duration": 405
+        }, {
+            "date": "2012-01-08",
+            "distance": 238,
+            "townName": "Houston",
+            "townName2": "Houston",
+            "townSize": 16,
+            "latitude": 29.76,
+            "duration": 309
+        }, {
+            "date": "2012-01-09",
+            "distance": 218,
+            "townName": "Dalas",
+            "townSize": 17,
+            "latitude": 32.8,
+            "duration": 287
+        }, {
+            "date": "2012-01-10",
+            "distance": 349,
+            "townName": "Oklahoma City",
+            "townSize": 11,
+            "latitude": 35.49,
+            "duration": 485
+        }, {
+            "date": "2012-01-11",
+            "distance": 603,
+            "townName": "Kansas City",
+            "townSize": 10,
+            "latitude": 39.1,
+            "duration": 890
+        }, {
+            "date": "2012-01-12",
+            "distance": 534,
+            "townName": "Denver",
+            "townName2": "Denver",
+            "townSize": 18,
+            "latitude": 39.74,
+            "duration": 810
+        }, {
+            "date": "2012-01-13",
+            "townName": "Salt Lake City",
+            "townSize": 12,
+            "distance": 425,
+            "duration": 670,
+            "latitude": 40.75,
+            "dashLength": 8,
+            "alpha": 0.4
+        }, {
+            "date": "2012-01-14",
+            "latitude": 36.1,
+            "duration": 470,
+            "townName": "Las Vegas",
+            "townName2": "Las Vegas"
+        }, {
+            "date": "2012-01-15"
+        }, {
+            "date": "2012-01-16"
+        }, {
+            "date": "2012-01-17"
+        }, {
+            "date": "2012-01-18"
+        }, {
+            "date": "2012-01-19"
+        }],
+        "valueAxes": [{
+            "id": "distanceAxis",
+            "axisAlpha": 0,
+            "gridAlpha": 0,
+            "position": "left",
+            "title": "distance"
+        }, {
+            "id": "latitudeAxis",
+            "axisAlpha": 0,
+            "gridAlpha": 0,
+            "labelsEnabled": false,
+            "position": "right"
+        }, {
+            "id": "durationAxis",
+            "duration": "mm",
+            "durationUnits": {
+                "hh": "h ",
+                "mm": "min"
+            },
+            "axisAlpha": 0,
+            "gridAlpha": 0,
+            "inside": true,
+            "position": "right",
+            "title": "duration"
+        }],
+        "graphs": [{
+            "alphaField": "alpha",
+            "balloonText": "[[value]] miles",
+            "dashLengthField": "dashLength",
+            "fillAlphas": 0.7,
+            "legendPeriodValueText": "total: [[value.sum]] mi",
+            "legendValueText": "[[value]] mi",
+            "title": "distance",
+            "type": "column",
+            "valueField": "distance",
+            "valueAxis": "distanceAxis"
+        }, {
+            "balloonText": "latitude:[[value]]",
+            "bullet": "round",
+            "bulletBorderAlpha": 1,
+            "useLineColorForBulletBorder": true,
+            "bulletColor": "#FFFFFF",
+            "bulletSizeField": "townSize",
+            "dashLengthField": "dashLength",
+            "descriptionField": "townName",
+            "labelPosition": "right",
+            "labelText": "[[townName2]]",
+            "legendValueText": "[[value]]/[[description]]",
+            "title": "latitude/city",
+            "fillAlphas": 0,
+            "valueField": "latitude",
+            "valueAxis": "latitudeAxis"
+        }, {
+            "bullet": "square",
+            "bulletBorderAlpha": 1,
+            "bulletBorderThickness": 1,
+            "dashLengthField": "dashLength",
+            "legendValueText": "[[value]]",
+            "title": "duration",
+            "fillAlphas": 0,
+            "valueField": "duration",
+            "valueAxis": "durationAxis"
+        }],
+        "chartCursor": {
+            "categoryBalloonDateFormat": "DD",
+            "cursorAlpha": 0.1,
+            "cursorColor":"#000000",
+            "fullWidth":true,
+            "valueBalloonsEnabled": false,
+            "zoomable": false
+        },
+        "dataDateFormat": "YYYY-MM-DD",
+        "categoryField": "date",
+        "categoryAxis": {
+            "dateFormats": [{
+                "period": "DD",
+                "format": "DD"
+            }, {
+                "period": "WW",
+                "format": "MMM DD"
+            }, {
+                "period": "MM",
+                "format": "MMM"
+            }, {
+                "period": "YYYY",
+                "format": "YYYY"
+            }],
+            "parseDates": true,
+            "autoGridCount": false,
+            "axisColor": "#555555",
+            "gridAlpha": 0.1,
+            "gridColor": "#FFFFFF",
+            "gridCount": 50
+        },
+        "export": {
+            "enabled": true
+        }
+    });
+</script>
+
+
+
+
 </body>
 </html>

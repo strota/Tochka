@@ -1,35 +1,138 @@
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Красивые диаграммы | Юрий Немец</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
-    <!-- <link rel="stylesheet" href="css/reset.css"> -->
-    <!-- <link rel="stylesheet" href="css/style.css"> -->
 
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
-    <script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-</head>
-<body>
-<!-- График -->
-<div class="container-chart">
-    <div class="chart2 ct-chart ct-golden-section"></div>
+<% include header.ejs %>
+<div>
+    Добро пожаловать!
 </div>
 
-<script>
-    new Chartist.Line('.chart2', {
-        labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май'],
-        series: [
-            [3, 3, 2, 6, 9],
-            [2, 1, 3.5, 3, 8],
-            [3, 7, 2, 1, 3]
-        ]
-    }, {
-        fullWidth: true,
-        chartPadding: {
-            right: 50
-        }
-    });
-</script>
-</body>
-</html>
+
+<div><%= id %></div>
+<form action="/VAD" method="post">
+    <table id="VAD_first_table">
+        <colgroup>
+            <col style="background:#bec2d4;">
+        </colgroup>
+        <tbody>
+        <% var count = 0;
+        var count_line = 1;
+        %>
+        <tr>
+            <td>Даты</td>
+            <% array_value.forEach(function (item) {
+            if (count % (array_value.length / 3) == 0 && count != 0) {%>
+        </tr><tr>
+            <% if (count_line == 1) { %>
+            <td>> 1 минуты</td>
+            <% count_line += 1;
+            } else { %>
+            <td>Не дозвонились</td>
+            <% }} %>
+            <td><input type="text" name=<%= arr[count] %> value=<%= item %>></td>
+            <% count += 1 }); %>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" value="Сохранить таблицу" onclick="save()">
+</form>
+<br>
+<form>
+    <input type="button" value="Добавить столбец" onclick="correction('VAD_first_table')">
+</form>
+
+<br>
+
+
+
+<form action="/VAD" method="post">
+    <table id="VAD_second_table">
+        <colgroup>
+            <col style="background:#bec2d4;">
+        </colgroup>
+        <tbody>
+        <tr>
+            <td>Даты</td>
+            <td><input type="text" name="VAD_second_table_2_1"></td>
+        </tr>
+        <tr>
+            <td>Среднее время ответа в чате</td>
+            <td><input type="text" name="VAD_second_table_2_2"></td>
+        </tr>
+        <tr>
+            <td>Потолок</td>
+            <td><input type="text" name="VAD_second_table_2_3"></td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="submit" value="Сохранить таблицу" onclick="save()">
+</form>
+<br>
+<form>
+    <input type="button" value="Добавить столбец" onclick="correction('VAD_second_table')">
+</form>
+
+
+
+
+
+<!--<script>-->
+<!--var chart = new Chartist.Line('.ct-chart', {-->
+<!--series: [-->
+<!--{-->
+<!--name: 'series-1',-->
+<!--data: [-->
+<!--{x: new Date(143134652600), y: 53},-->
+<!--{x: new Date(143234652600), y: 40},-->
+<!--{x: new Date(143340052600), y: 45},-->
+<!--{x: new Date(143366652600), y: 40},-->
+<!--{x: new Date(143410652600), y: 20},-->
+<!--{x: new Date(143508652600), y: 32},-->
+<!--{x: new Date(143569652600), y: 18},-->
+<!--{x: new Date(143579652600), y: 11}-->
+<!--]-->
+<!--},-->
+<!--{-->
+<!--name: 'series-2',-->
+<!--data: [-->
+<!--{x: new Date(143134652600), y: 53},-->
+<!--{x: new Date(143234652600), y: 35},-->
+<!--{x: new Date(143334652600), y: 30},-->
+<!--{x: new Date(143384652600), y: 30},-->
+<!--{x: new Date(143568652600), y: 10}-->
+<!--]-->
+<!--}-->
+<!--]-->
+<!--});-->
+<!--</script>-->
+
+<br>
+
+
+<form action="/VAD" method="post">
+    <table id="VAD_second_table">
+        <tbody>
+        <% var count = 0;
+        var count_line = 1;
+        %>
+        <tr>
+            <td>Даты</td>
+            <% array_value.forEach(function (item) {
+            if (count % (array_value.length / 3) == 0 && count != 0) {%>
+        </tr><tr>
+            <% if (count_line == 1) { %>
+            <td>Среднее время ответа в чате</td>
+            <% count_line += 1;
+            } else { %>
+            <td>Потолок</td>
+            <% }} %>
+            <td><input type="text" name=<%= arr[count] %> value=<%= item %>></td>
+            <% count += 1 }); %>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" value="Сохранить таблицу" onclick="save()">
+</form>
+<br>
+<form>
+    <input type="button" value="Добавить столбец" onclick="correction('VAD_second_table'), correction('VAD_first_table')">
+</form>
+
+<% include adding_function.ejs %>

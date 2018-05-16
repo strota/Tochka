@@ -1,4 +1,112 @@
-<ul>
-    <li><a href="http://localhost:3000/">Круги</a></li>
-    <li><a href="http://localhost:3000/diagrams">Диаграммы</a></li>
-</ul>
+<div class="menu_div" id="menu">
+    <ul class="menu">
+        <!--<img class="img" src="logo.png">-->
+        <span class="logo_text text">ТОЧКА</span>
+        <li><a href="http://localhost:3000/" class="text">Круги</a></li>
+        <li><a href="http://localhost:3000/diagrams" class="text">Диаграммы</a></li>
+    </ul>
+</div>
+<style>
+    body
+    {
+        background-color: #f2f3f8;
+    }
+
+    .logo_text
+    {
+        /*color: #a9adcf;*/
+        color: white;
+        /*background-color: #282a3c;*/
+        font-size: 150%;
+        padding-right: 20px;
+        margin: 20px;
+    }
+
+    .text
+    {
+        font-family: Trebuchet MS, sans-serif;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .menu_div
+    {
+        width: 100%;
+        height: 50px;
+        /*background-color: #282a3c;*/
+        background-color: #2b3643;
+        border-radius: 5px;
+    }
+
+    .menu
+    {
+
+        margin: 0;
+        padding: 0;
+        height: 50px;
+    }
+
+
+    .menu > li
+    {
+        display: inline;
+        margin-bottom: 70px;
+    }
+
+    .menu_div > .menu > .text
+    {
+        margin-top: 100px;
+    }
+    a
+    {
+        text-decoration: none;
+        color: white;
+        /*color: #868aa8;*/
+        font-size: 110%;
+        padding-left: 20px;
+        font-weight: bold;
+    }
+
+    a:hover
+    {
+        color: #b2b6d7;
+    }
+
+    a:active
+    {
+        color: #d1d9ff;
+    }
+
+
+    .table
+    {
+        border-radius: 5px;
+        border: 1px solid #282a3c;
+        margin-top: 3%;
+    }
+    tr {
+        font-weight: normal;
+        font-size: 13px;
+        color: #039;
+        text-transform: uppercase;
+        border-right: 1px solid #0865c2;
+        border-top: 1px solid #0865c2;
+        border-left: 1px solid #0865c2;
+        border-bottom: 1px solid #fff;
+        padding: 20px;
+    }
+    td {
+        color: #4d4d79;
+        border-right: 1px dashed #868aa8;
+        padding: 10px 20px;
+    }
+
+    .input_base
+    {
+        width: 100%;
+        background-color: #f2f3f8;
+        border-color: #bec2d4;
+    }
+
+
+</style>
