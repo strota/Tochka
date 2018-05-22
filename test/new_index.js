@@ -21,31 +21,24 @@ app.get('/diagrams', function (req, res) {
 })
 
 app.get('/circle/%D0%92%D0%AD%D0%94', function (req, res) {
-    // console.log('Ты тут была');
-    // var collection = db.collection("VAD_first_table");
-    // collection.find().forEach(function(doc) {
-    //     console.log('И тут была');
-    //     console.log(doc);
-    //     call_two_table('VAD', collection, res, doc, doc._id);
-    // });
-    //
-    // var second_collection = db.collection("VAD_second_table");
-    // second_collection.find().forEach(function(doc) {
-    //     console.log('И тут была');
-    //     call_table('VAD', collection, res, doc, doc._id);
-    // });
-    // res.render('VAD', { array_value: ['0'], arr: ['0'] });
-    res.render('VAD');
+    if(!req.body) return res.sendStatus(400);
+    var collection = db.collection("VAD_table");
+    var user = req.body;
+    collection = table_definition(user, collection, 'VAD');
+    collection.find().forEach(function(doc) {
+        call_two_table('VAD', res, doc);
+    });
 })
 
-
-// app.listen(3000);
 
 MongoClient.connect('mongodb://127.0.0.1:27017/diagrams', function (err, database) {
     if(err) {
         return console.log(err);
     }
+    // console.log(database);
     db = database;
+    // console.log(database.options);
+    // console.log(database.topology);
     app.listen(3000);
 })
 
@@ -59,18 +52,27 @@ app.use(express.static(__dirname + "/views"));
 app.post("/VAD", urlencodedParser, function (request, response) {
     if(!request.body) return response.sendStatus(400);
     var collection = db.collection("VAD_table");
-    var user = request.body;
-    collection = table_definition(user, collection, 'VAD');
-    collection.find().forEach(function(doc) {
-        console.log(doc);
-        call_two_table('VAD', response, doc);
-    });
-    response.render("VAD");
+    var table_data = request.body;
+    // collection.remove();
+    // update_table(table_data, 'VAD_first_table');
+    collection = table_definition(table_data, collection, 'VAD', response);
+    // setTimeout(function () {
+    // collection.find().forEach(function(doc) {
+    //     console.log('ТУТ ДИЧЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    //     console.log(doc);
+    //     call_two_table('VAD', response, doc);
+    // })}, 1000);
 });
 
 
+function update_table(table_data, name_table) {
+    let collection_api = db.collection('VAD_table');
+    let document = collection_api.findOne({name: name_table});
+    console.log(document);
+    return true;
+}
+
 app.get('/circle/%D0%9A%D0%A1', function (req, res) {
-    console.log('Ты тут была');
     var collection = db.collection("KS_first_table");
     collection.find().forEach(function(doc) {
         call_table('KS', res, doc);
@@ -102,7 +104,6 @@ app.post("/Opero", urlencodedParser, function (request, response) {
     if(!request.body) return response.sendStatus(400);
     var collection = db.collection("Opero_first_table");
     var user = request.body;
-    console.log('Сейчас ты в POST')
     collection.insert({'_id': 'Opero_first_table'});
     //
     //
@@ -122,10 +123,8 @@ app.post("/OSKS", urlencodedParser, function (request, response) {
     if(!request.body) return response.sendStatus(400);
     var collection = db.collection("OSKS_first_table");
     var user = request.body;
-    console.log('Сейчас ты в POST')
     collection.insert({'_id': 'OSKS_first_table'});
-    //
-    //
+
     // collection.update({'_id': 'KS_first_table'}, {'_id': 'KS_first_table', user});
 
     collection.find().forEach(function(doc) {
@@ -147,62 +146,79 @@ function call_table(adress, res, value) {
         line += dictionary[arr[value]] + ' ';
         array_value.push(dictionary[arr[value]]);
     }
-    console.log(arr);
-    console.log(array_value);
     res.render(adress, { array_value: array_value, arr: arr });
 }
 
 function call_two_table(adress, res, value) {
-    console.log('Ты зашла в call_two_table');
-    var arr = [];
+    console.log('Мы зашли в функцию');
     var final = {};
+    var final_array = [];
     for (var key in value)
     {
-        if (key != '_id') {
+        if (key != 'name' && key != '_id') {
             var arr = [];
-            console.log(key);
-            console.log(value[key]);
             for (var new_key in value[key]) {
                 arr.push(new_key);
             }
             var array_value = [];
             for (var i in arr) {
-                console.log(i);
-                console.log()
-                array_value.push(value[key[i]]);
+                var dictionary = value[key];
+                array_value.push(dictionary[arr[i]]);
             }
-            console.log(arr);
-            console.log(array_value);
+            final_array.push([arr, array_value]);
         }
     }
-
-
-    // res.render(adress, { array_value: array_value, arr: arr });
-    // res.render('VAD');
-    // res.render(adress, { array_value: array_value, arr: arr, id: id });
+    final = {first_table: final_array[0], second_table: final_array[1], name_page: adress};
+    res.render(adress, final);
 }
 
-function table_definition(table_body, collection, name_page) {
+function table_definition(table_body, collection, name_page, response) {
+    console.log(table_body);
+    var ids;
     var first_table;
     var second_table;
+    // table_body = { 'VAD_second_table_2_1': '98', 'VAD_second_table_2_2': '56', 'VAD_second_table_2_3': '356'};
     collection.find().forEach(function(doc) {
         first_table = doc[name_page + '_first_table'];
         second_table = doc[name_page + '_second_table'];
+        ids = name_page + '_table';
+        console.log('Тут мы получаем старые значения');
     });
-    setTimeout(function() {
-        var ids = name_page + '_table';
+    setTimeout(function () {
+        console.log('Здесь мы обновляем базу');
         if ((Object.keys(table_body)[0]).indexOf('first') !== -1) {
-            collection.update({'_id': ids}, {
-                '_id': ids, 'VAD_first_table': table_body,
+            collection.updateOne({'name': ids}, {
+                'name': ids, 'VAD_first_table': table_body,
                 'VAD_second_table': second_table
             });
         }
         else {
-            collection.update({'_id': ids}, {
-                '_id': ids, 'VAD_first_table': first_table,
+            collection.updateOne({'name': ids}, {
+                'name': ids, 'VAD_first_table': first_table,
                 'VAD_second_table': table_body
             });
         }
     }, 1000);
+    setTimeout(function () {
+            collection.find().forEach(function(doc) {
+                console.log('??????????????????');
+                console.log(doc);
+                console.log('??????????????????');
+            });}, 1000);
+    setTimeout(function () {
+        collection.find().forEach(function(doc) {
+            console.log('ТУТ ДИЧЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+            // console.log(doc);
+            setTimeout(function () {
+                call_two_table('VAD', response, doc);
+            }, 1000);
+            // call_two_table('VAD', response, doc);
+        })}, 1000);
+    // setTimeout(function () {
+    //     collection.find().forEach(function(doc) {
+    //         console.log('??????????????????');
+    //         console.log(doc);
+    //         console.log('??????????????????');
+    //     });}, 1000);
     return collection;
 }

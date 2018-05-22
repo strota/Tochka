@@ -10,60 +10,76 @@
 <% include header.ejs %>
 
 <form action="/VAD" method="post">
-    <table id="VAD_first_table">
+    <table id="VAD_first_table" class="table">
         <colgroup>
             <col style="background:#bec2d4;">
         </colgroup>
         <tbody>
+        <% var count = 0;
+        var count_line = 1;
+        %>
         <tr>
             <td>Даты</td>
-            <td><input type="text" class="input_base" name="VAD_first_table_2_1"></td>
-        </tr>
-        <tr>
+            <% first_table[1].forEach(function (item) {
+            if (count % (first_table[1].length / 3) == 0 && count != 0) {%>
+        </tr><tr>
+            <% if (count_line == 1) { %>
             <td>> 1 минуты</td>
-            <td><input type="text" class="input_base" name="VAD_first_table_2_2"></td>
-        </tr>
-        <tr>
+            <% count_line += 1;
+            } else { %>
             <td>Не дозвонились</td>
-            <td><input type="text" class="input_base" name="VAD_first_table_2_3"></td>
-        </tr>
+            <% }} %>
+            <td><input type="text" class="input_base" name=<%= first_table[0][count] %> value=<%= item %>></td>
+            <% count += 1 }); %>
         </tbody>
     </table>
     <br>
-    <input type="submit" value="Сохранить таблицу" onclick="save()">
+    <input type="submit" class="button_circle" value="Сохранить таблицу">
 </form>
 <br>
 <form>
-    <input type="button" value="Добавить столбец" onclick="correction('VAD_first_table')">
+    <input type="button" class="button_circle" value="Добавить столбец" onclick="correction('VAD_first_table')">
 </form>
 
+
 <form action="/VAD" method="post">
-    <table id="VAD_second_table">
+    <table id="VAD_second_table" class="table">
         <colgroup>
             <col style="background:#bec2d4;">
         </colgroup>
         <tbody>
+        <% var count = 0;
+        var count_line = 1;
+        %>
         <tr>
             <td>Даты</td>
-            <td><input type="text" class="input_base" name="VAD_second_table_2_1"></td>
-        </tr>
-        <tr>
-            <td>> 1 минуты</td>
-            <td><input type="text" class="input_base" name="VAD_second_table_2_2"></td>
-        </tr>
-        <tr>
-            <td>Не дозвонились</td>
-            <td><input type="text" class="input_base" name="VAD_second_table_2_3"></td>
-        </tr>
+            <% second_table[1].forEach(function (item) {
+            if (count % (second_table[1].length / 3) == 0 && count != 0) {%>
+        </tr><tr>
+            <% if (count_line == 1) { %>
+            <td>Среднее время ответа в чате</td>
+            <% count_line += 1;
+            } else { %>
+            <td>Потолок</td>
+            <% }} %>
+            <td><input type="text" class="input_base" name=<%= second_table[0][count] %> value=<%= item %>></td>
+            <% count += 1 }); %>
         </tbody>
     </table>
     <br>
-    <input type="submit" value="Сохранить таблицу" onclick="save()">
+    <input type="submit" class="button_circle" value="Сохранить таблицу">
 </form>
 <br>
 <form>
-    <input type="button" value="Добавить столбец" onclick="correction('VAD_second_table')">
+    <input type="button" class="button_circle" value="Добавить столбец" onclick="correction('VAD_second_table')">
 </form>
+
+
+<ul><% second_table[1].forEach(function (item) { %>
+    <li><%= item %></li>
+    <% }); %>
+</ul>
+
 
 <% include adding_function.ejs %>
 </body>
