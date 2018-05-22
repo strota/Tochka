@@ -177,20 +177,30 @@ function table_definition(table_body, collection, name_page, response) {
     var ids;
     var first_table;
     var second_table;
+    var id;
     // table_body = { 'VAD_second_table_2_1': '98', 'VAD_second_table_2_2': '56', 'VAD_second_table_2_3': '356'};
     collection.find().forEach(function(doc) {
         first_table = doc[name_page + '_first_table'];
         second_table = doc[name_page + '_second_table'];
         ids = name_page + '_table';
+        id = doc['_id'];
+        console.log(id);
         console.log('Тут мы получаем старые значения');
     });
     setTimeout(function () {
         console.log('Здесь мы обновляем базу');
         if ((Object.keys(table_body)[0]).indexOf('first') !== -1) {
-            collection.updateOne({'name': ids}, {
-                'name': ids, 'VAD_first_table': table_body,
-                'VAD_second_table': second_table
-            });
+            collection.save({ 
+                '_id': id, name: ids, 'VAD_first_table': table_body, 
+                'VAD_second_table': second_table });
+                // collection.updateOne({'name': ids}, {
+                //     'name': ids, 'VAD_first_table': table_body,
+                //     'VAD_second_table': second_table
+                // });
+            console.log('_______________________');
+            console.log(table_body);
+            console.log('_______________________');
+            console.log(second_table);
         }
         else {
             collection.updateOne({'name': ids}, {
