@@ -206,13 +206,13 @@ function table_definition(table_body, collection, name_page, response, flag) {
         if (flag) {
             if ((Object.keys(table_body)[0]).indexOf('first') !== -1) {
                 collection.save({ 
-                '_id': id, name: ids, 'VAD_first_table': table_body, 
-                'VAD_second_table': second_table });
+                '_id': id, name: ids, 'first_table': table_body, 
+                'second_table': second_table });
             }
             else {
                 collection.save({ 
-                    '_id': id, name: ids, 'VAD_first_table': first_table, 
-                    'VAD_second_table': table_body });
+                    '_id': id, name: ids, 'first_table': first_table, 
+                    'second_table': table_body });
                 // collection.updateOne({'name': ids}, {
                 //     'name': ids, 'VAD_first_table': first_table,
                 //     'VAD_second_table': table_body
@@ -223,7 +223,7 @@ function table_definition(table_body, collection, name_page, response, flag) {
     setTimeout(function () {
         collection.find().forEach(function(doc) {
             setTimeout(function () {
-                call_two_table('VAD', response, doc);
+                call_two_table(name_page, response, doc);
             }, 1000);
         })}, 1000);
     return collection;
@@ -245,8 +245,7 @@ function update_database(table_body, collection, name_page, response, flag) {
     setTimeout(function () {
         if (flag) {
             console.log('Мы зашли сюда');
-            collection.save({ 
-            '_id': id, name: ids, 'first_table': table_body });
+            collection.save({ '_id': id, name: ids, 'first_table': table_body });
         }
     }, 1000);
     setTimeout(function () {
