@@ -21,13 +21,11 @@ app.get('/diagrams', function (req, res) {
 })
 
 app.get('/circle/%D0%92%D0%AD%D0%94', function (req, res) {
-    if(!req.body) return res.sendStatus(400);
+    if(!req.body) return response.sendStatus(400);
     var collection = db.collection("VAD_table");
-    var user = req.body;
-    collection = table_definition(user, collection, 'VAD');
-    collection.find().forEach(function(doc) {
-        call_two_table('VAD', res, doc);
-    });
+    var table_data = req.body;
+    collection = table_definition(table_data, collection, 'VAD', res, false);
+    
 })
 
 
@@ -55,7 +53,7 @@ app.post("/VAD", urlencodedParser, function (request, response) {
     var table_data = request.body;
     // collection.remove();
     // update_table(table_data, 'VAD_first_table');
-    collection = table_definition(table_data, collection, 'VAD', response);
+    collection = table_definition(table_data, collection, 'VAD', response, true);
     // setTimeout(function () {
     // collection.find().forEach(function(doc) {
     //     console.log('ТУТ ДИЧЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
@@ -150,7 +148,6 @@ function call_table(adress, res, value) {
 }
 
 function call_two_table(adress, res, value) {
-    console.log('Мы зашли в функцию');
     var final = {};
     var final_array = [];
     for (var key in value)
@@ -172,8 +169,7 @@ function call_two_table(adress, res, value) {
     res.render(adress, final);
 }
 
-function table_definition(table_body, collection, name_page, response) {
-    console.log(table_body);
+function table_definition(table_body, collection, name_page, response, flag) {
     var ids;
     var first_table;
     var second_table;
@@ -184,51 +180,30 @@ function table_definition(table_body, collection, name_page, response) {
         second_table = doc[name_page + '_second_table'];
         ids = name_page + '_table';
         id = doc['_id'];
-        console.log(id);
-        console.log('Тут мы получаем старые значения');
     });
     setTimeout(function () {
-        console.log('Здесь мы обновляем базу');
-        if ((Object.keys(table_body)[0]).indexOf('first') !== -1) {
-            collection.save({ 
+        if (flag) {
+            if ((Object.keys(table_body)[0]).indexOf('first') !== -1) {
+                collection.save({ 
                 '_id': id, name: ids, 'VAD_first_table': table_body, 
                 'VAD_second_table': second_table });
+            }
+            else {
+                collection.save({ 
+                    '_id': id, name: ids, 'VAD_first_table': first_table, 
+                    'VAD_second_table': table_body });
                 // collection.updateOne({'name': ids}, {
-                //     'name': ids, 'VAD_first_table': table_body,
-                //     'VAD_second_table': second_table
+                //     'name': ids, 'VAD_first_table': first_table,
+                //     'VAD_second_table': table_body
                 // });
-            console.log('_______________________');
-            console.log(table_body);
-            console.log('_______________________');
-            console.log(second_table);
-        }
-        else {
-            collection.updateOne({'name': ids}, {
-                'name': ids, 'VAD_first_table': first_table,
-                'VAD_second_table': table_body
-            });
+            }
         }
     }, 1000);
     setTimeout(function () {
-            collection.find().forEach(function(doc) {
-                console.log('??????????????????');
-                console.log(doc);
-                console.log('??????????????????');
-            });}, 1000);
-    setTimeout(function () {
         collection.find().forEach(function(doc) {
-            console.log('ТУТ ДИЧЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-            // console.log(doc);
             setTimeout(function () {
                 call_two_table('VAD', response, doc);
             }, 1000);
-            // call_two_table('VAD', response, doc);
         })}, 1000);
-    // setTimeout(function () {
-    //     collection.find().forEach(function(doc) {
-    //         console.log('??????????????????');
-    //         console.log(doc);
-    //         console.log('??????????????????');
-    //     });}, 1000);
     return collection;
 }

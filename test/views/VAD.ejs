@@ -8,6 +8,7 @@
 </head>
 <body>
 <% include header.ejs %>
+<% include base_style.ejs%>
 
 <form action="/VAD" method="post">
     <table id="VAD_first_table" class="table">
@@ -73,12 +74,6 @@
 <form>
     <input type="button" class="button_circle" value="Добавить столбец" onclick="correction('VAD_second_table')">
 </form>
-
-
-<ul><% second_table[1].forEach(function (item) { %>
-    <li><%= item %></li>
-    <% }); %>
-</ul>
 
 
 <% include adding_function.ejs %>
