@@ -11,6 +11,7 @@
 <% include header.ejs %>
 <% include base_style.ejs%>
 
+
 <form action="/KS" method="post">
     <table id="KS_first_table" class="table">
         <colgroup>
@@ -22,8 +23,8 @@
         %>
         <tr>
             <td>Даты</td>
-            <% array_value.forEach(function (item) {
-            if (count % (array_value.length / 3) == 0 && count != 0) {%>
+            <% first_table[1].forEach(function (item) {
+            if (count % (first_table[1].length / 3) == 0 && count != 0) {%>
         </tr><tr>
             <% if (count_line == 1) { %>
             <td>Среднее время ответа в чате</td>
@@ -31,7 +32,7 @@
             } else { %>
             <td>Потолок</td>
             <% }} %>
-            <td><input type="text" class="input_base" name=<%= arr[count] %> value=<%= item %>></td>
+            <td><input type="text" class="input_base" name=<%= first_table[0][count] %> value=<%= item %>></td>
             <% count += 1 }); %>
         </tbody>
     </table>
@@ -42,6 +43,8 @@
 <form>
     <input type="button" class="button_circle" value="Добавить столбец" onclick="correction('KS_first_table')">
 </form>
+
+
 <style>
     .button_circle
     {
