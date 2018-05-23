@@ -17,8 +17,17 @@
       <file leaf-file-name="new_index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/new_index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="205" column="7" selection-start-line="205" selection-start-column="7" selection-end-line="205" selection-end-column="7" />
+            <state relative-caret-position="73">
+              <caret line="238" lean-forward="true" selection-start-line="238" selection-end-line="238" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="KS.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/KS.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="38" column="28" lean-forward="true" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -84,10 +93,10 @@
         <option value="$PROJECT_DIR$/views/21.js" />
         <option value="$PROJECT_DIR$/views/21.ejs" />
         <option value="$PROJECT_DIR$/views/base_style.ejs" />
-        <option value="$PROJECT_DIR$/views/KS.ejs" />
         <option value="$PROJECT_DIR$/views/header.ejs" />
         <option value="$PROJECT_DIR$/Example.html" />
         <option value="$PROJECT_DIR$/views/VAD.ejs" />
+        <option value="$PROJECT_DIR$/views/KS.ejs" />
         <option value="$PROJECT_DIR$/new_index.js" />
       </list>
     </option>
@@ -237,17 +246,20 @@
       <workItem from="1526899717404" duration="1550000" />
       <workItem from="1526901696776" duration="1873000" />
       <workItem from="1526978041032" duration="6000" />
+      <workItem from="1527068334506" duration="1756000" />
+      <workItem from="1527070182750" duration="1167000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="239024000" />
+    <option name="totallyTimeSpent" value="241947000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49816176" visible="true" weight="0.14944357" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.3290441" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.329806" />
@@ -256,7 +268,6 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39858907" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -298,8 +309,36 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/new_index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
+        <state relative-caret-position="4097">
+          <caret line="241" column="25" lean-forward="true" selection-start-line="241" selection-start-column="25" selection-end-line="241" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/KS.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/new_index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3485">
           <caret line="205" column="7" selection-start-line="205" selection-start-column="7" selection-end-line="205" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/KS.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="38" column="28" lean-forward="true" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/new_index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="238" lean-forward="true" selection-start-line="238" selection-end-line="238" />
         </state>
       </provider>
     </entry>

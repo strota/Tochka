@@ -18,22 +18,23 @@
             <col style="background:#bec2d4;">
         </colgroup>
         <tbody>
-        <% var count = 0;
-        var count_line = 1;
-        %>
+        <% var count = 0; %>
+        <% var count_line = 0; %>
         <tr>
             <td>Даты</td>
-            <% first_table[1].forEach(function (item) {
-            if (count % (first_table[1].length / 3) == 0 && count != 0) {%>
+            <% for (var key in table_body) {
+                if (count % (Object.keys(table_body).length / 3) == 0 && count != 0) { %>
         </tr><tr>
-            <% if (count_line == 1) { %>
+                    <% if (count_line == 1) { %>
             <td>Среднее время ответа в чате</td>
-            <% count_line += 1;
+            <%
+            count_line += 1;
             } else { %>
             <td>Потолок</td>
-            <% }} %>
-            <td><input type="text" class="input_base" name=<%= first_table[0][count] %> value=<%= item %>></td>
-            <% count += 1 }); %>
+            <% }}
+            %>
+            <td><input type="text" class="input_base" name= <%= key%> value=<%=table_body[key] %> ></td>
+            <% count +=1; }; %>
         </tbody>
     </table>
     <br>
@@ -45,30 +46,6 @@
 </form>
 
 
-<style>
-    .button_circle
-    {
-        padding: 10px 30px;
-        margin: 0px 20px;
-        border-radius: 30px;
-        font-size: 90%;
-        box-shadow: 0 16px 32px 0 rgba(0,40,120,.35);
-    }
-    .button_circle:hover {
-        box-shadow: 0 0 0 0 rgba(0,40,120,0);
-        background-position: 0 0;
-    }
-
-    .chartHTML div
-    {
-        font: 10px Sans-Serif;
-        background-color: blue;
-        text-align: right;
-        padding: 3px;
-        margin: 1px;
-        color: white;
-    }
-</style>
 <% include adding_function.ejs %>
 
 
