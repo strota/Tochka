@@ -10,28 +10,31 @@
 <% include header.ejs %>
 <% include base_style.ejs%>
 
+
+
 <form action="/VAD" method="post">
     <table id="VAD_first_table" class="table">
         <colgroup>
             <col style="background:#bec2d4;">
         </colgroup>
         <tbody>
-        <% var count = 0;
-        var count_line = 1;
-        %>
+        <% var count = 0; %>
+        <% var count_line = 0; %>
         <tr>
             <td>Даты</td>
-            <% first_table[1].forEach(function (item) {
-            if (count % (first_table[1].length / 3) == 0 && count != 0) {%>
+            <% for (var key in first_table_body) {
+                if (count % (Object.keys(first_table_body).length / 3) == 0 && count != 0) { %>
         </tr><tr>
-            <% if (count_line == 1) { %>
+                    <% if (count_line == 1) { %>
             <td>> 1 минуты</td>
-            <% count_line += 1;
+            <%
+            count_line += 1;
             } else { %>
             <td>Не дозвонились</td>
-            <% }} %>
-            <td><input type="text" class="input_base" name=<%= first_table[0][count] %> value=<%= item %>></td>
-            <% count += 1 }); %>
+            <% }}
+            %>
+            <td><input type="text" class="input_base" name= <%= key%> value=<%=first_table_body[key] %> ></td>
+            <% count +=1; }; %>
         </tbody>
     </table>
     <br>
@@ -43,28 +46,30 @@
 </form>
 
 
+
 <form action="/VAD" method="post">
     <table id="VAD_second_table" class="table">
         <colgroup>
             <col style="background:#bec2d4;">
         </colgroup>
         <tbody>
-        <% var count = 0;
-        var count_line = 1;
-        %>
+        <% var count = 0; %>
+        <% var count_line = 0; %>
         <tr>
             <td>Даты</td>
-            <% second_table[1].forEach(function (item) {
-            if (count % (second_table[1].length / 3) == 0 && count != 0) {%>
+            <% for (var key in second_table_body) {
+                if (count % (Object.keys(second_table_body).length / 3) == 0 && count != 0) { %>
         </tr><tr>
-            <% if (count_line == 1) { %>
+                    <% if (count_line == 1) { %>
             <td>Среднее время ответа в чате</td>
-            <% count_line += 1;
+            <%
+            count_line += 1;
             } else { %>
             <td>Потолок</td>
-            <% }} %>
-            <td><input type="text" class="input_base" name=<%= second_table[0][count] %> value=<%= item %>></td>
-            <% count += 1 }); %>
+            <% }}
+            %>
+            <td><input type="text" class="input_base" name= <%= key%> value=<%=second_table_body[key] %> ></td>
+            <% count +=1; }; %>
         </tbody>
     </table>
     <br>
@@ -74,6 +79,7 @@
 <form>
     <input type="button" class="button_circle" value="Добавить столбец" onclick="correction('VAD_second_table')">
 </form>
+
 
 
 <% include adding_function.ejs %>

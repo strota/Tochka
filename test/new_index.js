@@ -26,10 +26,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/diagrams', function (err, databas
     if(err) {
         return console.log(err);
     }
-    // console.log(database);
     db = database;
-    // console.log(database.options);
-    // console.log(database.topology);
     app.listen(3000);
 })
 
@@ -44,14 +41,20 @@ app.get('/circle/%D0%92%D0%AD%D0%94', function (request, response) {
     if(!request.body) return response.sendStatus(400);
     var collection = db.collection("VAD_table");
     var table_data = request.body;
-    collection = table_definition(table_data, collection, 'VAD', response, false); 
+    let t1 = collection.findOne({name: 'VAD_table' });
+    t1.then((result) => {
+        response.render('VAD', {first_table_body: 
+            result['first_table'], 
+            second_table_body: result['second_table'], 
+            name_page: 'VAD'});
+    }); 
 })
 
 app.post("/VAD", urlencodedParser, function (request, response) {
     if(!request.body) return response.sendStatus(400);
     var collection = db.collection("VAD_table");
     var table_data = request.body;
-    collection = table_definition(table_data, collection, 'VAD', response, true);
+    collection = update_database_two(table_data, collection, 'VAD', response);
 });
 
 app.get('/circle/%D0%9A%D0%A1', function (request, response) {
@@ -73,119 +76,46 @@ app.post("/KS", urlencodedParser, function (request, response) {
 
 
 
-app.get('/circle/%D0%9E%D0%BF%D0%B5%D1%80%D0%BE', function (req, res) {
-    res.render('Opero');
+app.get('/circle/%D0%9E%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD%20%D0%BE%D1%84%D0%B8%D1%81', function (request, response) {
+    response.render('Online-office');
+});
+
+app.post("/Online-office", urlencodedParser, function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("OnlineOffice_table");
+    var table_data = request.body;
+    console.log(table_body);
+    response.render('Online-office');
+});
+
+
+app.get('/circle/%D0%9E%D0%BF%D0%B5%D1%80%D0%BE', function (request, response) {
+    response.render('Opero');
 });
 
 app.post("/Opero", urlencodedParser, function (request, response) {
-    res.render('Opero');
+    response.render('Opero');
 });
 
 
-app.get('/circle/%D0%9E%D0%A1%D0%9A%D0%A1', function (req, res) {
-    res.render('OSKS');
+app.get('/circle/%D0%9E%D0%A1%D0%9A%D0%A1', function (request, response) {
+    response.render('OSKS');
 })
 
 app.post("/OSKS", urlencodedParser, function (request, response) {
-    res.render('OSKS');
+    response.render('OSKS');
 });
 
 
 
-function call_table(adress, res, value) {
-    // var line = '';
-    // var dictionary = value['user'];
-    // var arr = [];
-    // for (var key in dictionary) {
-    //     arr.push(key);
-    // }
-    // var array_value = [];
-    // for (var value in arr) {
-    //     line += dictionary[arr[value]] + ' ';
-    //     array_value.push(dictionary[arr[value]]);
-    // }
-    // res.render(adress, { array_value: array_value, arr: arr });
-    console.log(value);
-    var final = {};
-    var final_array = [];
-    var arr = [];
-    for (var new_key in value) {
-        arr.push(new_key);
-    }
-    var array_value = [];
-    for (var i in arr) {
-        var dictionary = value;
-        array_value.push(dictionary[arr[i]]);
-    }
-    final_array.push([arr, array_value]);
-    final = {first_table: final_array[0], name_page: adress};
-    console.log(final);
-    res.render(adress, final);
 
 
-}
 
-function call_two_table(adress, res, value) {
-    var final = {};
-    var final_array = [];
-    for (var key in value)
-    {
-        if (key != 'name' && key != '_id') {
-            var arr = [];
-            for (var new_key in value[key]) {
-                arr.push(new_key);
-            }
-            var array_value = [];
-            for (var i in arr) {
-                var dictionary = value[key];
-                array_value.push(dictionary[arr[i]]);
-            }
-            final_array.push([arr, array_value]);
-        }
-    }
-    final = {first_table: final_array[0], second_table: final_array[1], name_page: adress};
-    console.log(final);
-    res.render(adress, final);
-}
 
-function table_definition(table_body, collection, name_page, response, flag) {
-    var ids;
-    var first_table;
-    var second_table;
-    var id;
-    // table_body = { 'VAD_second_table_2_1': '98', 'VAD_second_table_2_2': '56', 'VAD_second_table_2_3': '356'};
-    collection.find().forEach(function(doc) {
-        first_table = doc['first_table'];
-        second_table = doc['second_table'];
-        ids = name_page + '_table';
-        id = doc['_id'];
-    });
-    setTimeout(function () {
-        if (flag) {
-            if ((Object.keys(table_body)[0]).indexOf('first') !== -1) {
-                collection.save({ 
-                '_id': id, name: ids, 'first_table': table_body, 
-                'second_table': second_table });
-            }
-            else {
-                collection.save({ 
-                    '_id': id, name: ids, 'first_table': first_table, 
-                    'second_table': table_body });
-                // collection.updateOne({'name': ids}, {
-                //     'name': ids, 'VAD_first_table': first_table,
-                //     'VAD_second_table': table_body
-                // });
-            }
-        }
-    }, 1000);
-    setTimeout(function () {
-        collection.find().forEach(function(doc) {
-            setTimeout(function () {
-                call_two_table(name_page, response, doc);
-            }, 1000);
-        })}, 1000);
-    return collection;
-}
+
+
+
+
 
 
 
@@ -197,6 +127,19 @@ function update_database(table_body, collection, name_page, res) {
         collection.save(result, {}, (savedData) => {
             console.log(result.first_table);
         });
-        res.render(name_page, {table_body: result['first_table'], name_page: name_page});
+        res.render(name_page, {table_body: result.first_table, name_page: name_page});
+    });
+}
+
+function update_database_two(table_body, collection, name_page, res) {
+    let t1 = collection.findOne({name:name_page + '_table'  });
+    var name_table = (Object.keys(table_body)[0]).split('_')[1] + '_table';
+    t1.then((result) => {
+        result[name_table] = table_body;
+        collection.save(result, {}, (savedData) => { });
+        res.render(name_page, {first_table_body: 
+            result['first_table'], 
+            second_table_body: result['second_table'], 
+            name_page: name_page});
     });
 }
