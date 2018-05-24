@@ -9,9 +9,71 @@
 <div>
     Добро пожаловать в Оперо!
 </div>
-<form>
-    <input type="button" value="Добавить столбец" onclick="correction()">
+<% include base_style.ejs%>
+
+
+<form action="/Opero" method="post">
+    <table id="Opero_first_table" class="table">
+        <colgroup>
+            <col style="background:#bec2d4;">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>Даты</td>
+                <td><input type="text" class="input_base" name="Opero_first_table_2_1" value="1" ></td>
+            </tr>
+            <tr>
+                <td>Количество клиентов, которые ждали ответ больше 5 минут</td>
+                <td><input type="text" class="input_base" name="Opero_first_table_2_2" value="8%" ></td>
+            </tr>
+            <tr>
+                <td>Потолок</td>
+                <td><input type="text" class="input_base" name="Opero_first_table_2_3" value="10%" ></td>
+            </tr>
+
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" class="button_circle" value="Сохранить таблицу">
 </form>
+<br>
+<form>
+    <input type="button" class="button_circle" value="Добавить столбец" onclick="correction()">
+</form>
+
+<form action="/Opero" method="post">
+    <table id="Opero_second_table" class="table">
+        <colgroup>
+            <col style="background:#bec2d4;">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>Даты</td>
+                <td><input type="text" class="input_base" name="Opero_second_table_2_1" value="1" ></td>
+            </tr>
+            <tr>
+                <td>Среднее время ответа в чате</td>
+                <td><input type="text" class="input_base" name="Opero_second_table_2_2" value="8%" ></td>
+            </tr>
+            <tr>
+                <td>Потолок</td>
+                <td><input type="text" class="input_base" name="Opero_second_table_2_3" value="10%" ></td>
+            </tr>
+            <tr>
+                <td>Количество клиентов</td>
+                <td><input type="text" class="input_base" name="Opero_second_table_2_4" value="10345" ></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" class="button_circle" value="Сохранить таблицу">
+</form>
+<br>
+<form>
+    <input type="button" class="button_circle" value="Добавить столбец" onclick="correction()">
+</form>
+
+
 <% include adding_function.ejs %>
 </body>
 </html>

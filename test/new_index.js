@@ -13,12 +13,12 @@ mongoose.Promise = global.Promise;
 app.set('view engine', 'ejs');
 
 
-app.get('/', function (req, res) {
-    res.render('index');
+app.get('/', function (request, response) {
+    response.render('index');
 })
 
-app.get('/diagrams', function (req, res) {
-    res.render('diagramm');
+app.get('/diagrams', function (request, response) {
+    response.render('diagramm');
 })
 
 
@@ -71,29 +71,40 @@ app.post("/KS", urlencodedParser, function (request, response) {
     if(!request.body) return response.sendStatus(400);
     var collection = db.collection("KS_table");
     var table_data = request.body;
-    collection = update_database(table_data, collection, 'KS', response);
+    update_database(table_data, collection, 'KS', response);
 });
 
 
 
 app.get('/circle/%D0%9E%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD%20%D0%BE%D1%84%D0%B8%D1%81', function (request, response) {
-    response.render('Online-office');
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("OnlineOffice_table");
+    var table_data = request.body;
+    let t1 = collection.findOne({name: 'Online-office_table' });
+    t1.then((result) => {
+        console.log(result);
+        response.render('Online-office', {table_body: result['first_table'], name_page: 'Online-office'});
+    });
 });
 
 app.post("/Online-office", urlencodedParser, function (request, response) {
     if(!request.body) return response.sendStatus(400);
     var collection = db.collection("OnlineOffice_table");
     var table_data = request.body;
-    console.log(table_body);
-    response.render('Online-office');
+    // console.log(table_data);
+    update_database(table_data, collection, 'Online-office', response);
+    // response.render('Online-office');
 });
-
 
 app.get('/circle/%D0%9E%D0%BF%D0%B5%D1%80%D0%BE', function (request, response) {
     response.render('Opero');
 });
 
 app.post("/Opero", urlencodedParser, function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("Opero_table");
+    var table_data = request.body;
+    collection = update_database_two(table_data, collection, 'Opero', response);
     response.render('Opero');
 });
 
@@ -121,12 +132,12 @@ app.post("/OSKS", urlencodedParser, function (request, response) {
 
 function update_database(table_body, collection, name_page, res) {
     // table_body = { 'KS_first_table_2_1': '98', 'KS_first_table_2_2': '56', 'KS_first_table_2_3': '356'};
-    let t1 = collection.findOne({name:name_page + '_table'  });
+    // collection.insert({ first_table: table_body, name: name_page + '_table' });
+    let t1 = collection.findOne({name:name_page + '_table' });
     t1.then((result) => {
         result.first_table = table_body;
-        collection.save(result, {}, (savedData) => {
-            console.log(result.first_table);
-        });
+        collection.save(result, {}, (savedData) => {});
+        console.log(Object.keys(result.first_table).length);
         res.render(name_page, {table_body: result.first_table, name_page: name_page});
     });
 }

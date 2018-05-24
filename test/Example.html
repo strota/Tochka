@@ -136,3 +136,65 @@
 </form>
 
 <% include adding_function.ejs %>
+
+
+
+
+
+
+<form action="/KS" method="post">
+    <table id="KS_first_table" class="table">
+        <colgroup>
+            <col style="background:#bec2d4;">
+        </colgroup>
+        <tbody>
+        <% var count = 0; %>
+        <% var count_line = 0; %>
+        <% var names_first_column = ['Даты', "Количество обращений", "Ожидание больше минуты",
+        "Потери после обработки", "Ожидание больше минуты порог (не более 10%)",
+        "Порог потерь (не более 7%)", "Клиенты ждут больше 1 минуты", "Недозвонившиеся клиенты", 
+        "Потери после обработки", "Недозвонившиеся клиенты", "Потолок недозвоны", "Потолок > 1 минуты"]; %>
+        <tr>
+            <td>Даты</td>
+            <% for (var key in table_body) {
+                if (count % (Object.keys(table_body).length / 3) == 0 && count != 0) { %>
+        </tr><tr>
+                    <% if (count_line == 1) { %>
+            <td>Среднее время ответа в чате</td>
+            <%
+            count_line += 1;
+            } else { %>
+            <td>Потолок</td>
+            <% }}
+            %>
+            <td><input type="text" class="input_base" name= <%= key%> value=<%=table_body[key] %> ></td>
+            <% count +=1; }; %>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" class="button_circle" value="Сохранить таблицу">
+</form>
+<br>
+<form>
+    <input type="button" class="button_circle"  value="Добавить столбец" onclick="correction('OnlineOffice_first_table')">
+</form>
+
+
+
+
+<% var names_columns = ['Даты', 'Количество обращений',
+             'Ожидание больше минуты', 'Потери после обработки', 
+             'Ожидание более минуты порог (не более 10%)', 'Порог потерь 
+             (не более 7%)', 'Клиенты ждут больше 1 минуты', 'Недозвонившиеся клиенты', 
+             'Потери после обработки', 'Недозвонившиеся клиенты', 'Потолок недозвоны', 
+             'Потолок > 1 минуты']; %>
+
+<% for (var key in table_body) { %>
+    <% if (count === 0) {
+        count = length_line; %>
+        </tr><tr><td><% array[iteration - item];
+            item = item - 1; %></td>
+    <% } %>
+    <td><input type="text" class="input_base" name= <%= key%> value=<%=table_body[key] %> ></td>
+    <% count = count - 1; %>
+<% } %>
