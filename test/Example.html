@@ -198,3 +198,56 @@
     <td><input type="text" class="input_base" name= <%= key%> value=<%=table_body[key] %> ></td>
     <% count = count - 1; %>
 <% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form action="/Opero" method="post">
+    <table id="Opero" class="table">
+        <colgroup>
+            <col style="background:#bec2d4;">
+        </colgroup>
+        <tbody>
+            <% console.log(first_table_body); %>
+            <% var length_line = Object.keys(first_table_body).length / 12; %>
+            <% var iteration = Object.keys(first_table_body).length / length_line; %>
+            <% var count = length_line; %>
+            <% var item = 11; %>
+            <% var names_columns = ['Даты', 'Количество клиентов, которые ждали ответ больше 5 минут', 'Потолок']; %>
+            
+            <tr><td>Даты</td>
+                <% for (var key in first_table_body) { %>
+                    <% if (count === 0) {
+                        count = length_line; %>
+                        </tr>
+                        <tr>
+                            <td>
+                                <%= names_columns[iteration - item]; %>
+                                <% item = item - 1; %>
+                            </td>
+                    <% } %>
+                    <td>
+                        <% console.log(first_table_body[key]); %>
+                        <input type="text" class="input_base" name= <%= key %> value=<%=first_table_body[key] %> ></td>
+                        <% count = count - 1; %>
+                <% } %>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" class="button_circle" value="Сохранить таблицу">
+</form>
+<br>
+<form>
+    <input type="button" class="button_circle"  value="Добавить столбец" onclick="correction('Opero_first_table')">
+</form>

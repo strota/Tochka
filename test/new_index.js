@@ -96,16 +96,41 @@ app.post("/Online-office", urlencodedParser, function (request, response) {
     // response.render('Online-office');
 });
 
+
 app.get('/circle/%D0%9E%D0%BF%D0%B5%D1%80%D0%BE', function (request, response) {
-    response.render('Opero');
-});
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("Opero_table");
+    var table_data = request.body;
+    let t1 = collection.findOne({name: 'Opero_table' });
+    t1.then((result) => {
+        response.render('Opero', {first_table_body: 
+            result['first_table'], 
+            second_table_body: result['second_table'], 
+            name_page: 'Opero'});
+    });
+    // response.render('Opero');
+    // let t1 = collection.findOne({name: 'Opero_table' });
+})
+// app.get('/circle/%D0%9E%D0%BF%D0%B5%D1%80%D0%BE', function (request, response) {
+//     if(!request.body) return response.sendStatus(400);
+//     var collection = db.collection("Opero_table");
+//     var table_data = request.body;
+//     let t1 = collection.findOne({name: 'Opero_table' });
+//     t1.then((result) => {
+//         response.render('Opero', {first_table_body: 
+//             result['first_table'], 
+//             second_table_body: result['second_table'], 
+//             name_page: 'Opero'});
+//     });
+//     // response.render('Opero');
+// });
 
 app.post("/Opero", urlencodedParser, function (request, response) {
     if(!request.body) return response.sendStatus(400);
     var collection = db.collection("Opero_table");
     var table_data = request.body;
     collection = update_database_two(table_data, collection, 'Opero', response);
-    response.render('Opero');
+    // response.render('Opero');
 });
 
 
@@ -137,18 +162,19 @@ function update_database(table_body, collection, name_page, res) {
     t1.then((result) => {
         result.first_table = table_body;
         collection.save(result, {}, (savedData) => {});
-        console.log(Object.keys(result.first_table).length);
         res.render(name_page, {table_body: result.first_table, name_page: name_page});
     });
 }
 
-function update_database_two(table_body, collection, name_page, res) {
+function update_database_two(table_body, collection, name_page, response) {
+    // collection.insert({ first_table: table_body, second_table: table_body, name: name_page + '_table' });
     let t1 = collection.findOne({name:name_page + '_table'  });
     var name_table = (Object.keys(table_body)[0]).split('_')[1] + '_table';
     t1.then((result) => {
         result[name_table] = table_body;
         collection.save(result, {}, (savedData) => { });
-        res.render(name_page, {first_table_body: 
+        console.log(result);
+        response.render(name_page, {first_table_body: 
             result['first_table'], 
             second_table_body: result['second_table'], 
             name_page: name_page});
