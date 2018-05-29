@@ -1,19 +1,24 @@
 <script>
-    function correction(file_name) {
-        console.log(file_name)
-        var tbody = document.getElementById(file_name).getElementsByTagName("TBODY")[0];
-        console.log(tbody);
+    function correction(name_table) {
+        console.log('МЫ ТУТ!!!!!');
+        console.log(name_table);
+        // var collection = document.getElementsByTagName('first_form');
+        // console.log(document.getElementsByTagName('form'));
+        var tbody = (document.getElementById(name_table)).getElementsByTagName("tbody")[0];
+        // console.log((document.getElementsByClassName(name_form)).getElementsByTagName('table'));
+        // var tbody = document.getElementById(file_name).getElementsByTagName("tbody")[0];
+        // console.log(tbody);
         var value = tbody.getElementsByTagName('tr');
-        // console.log(value);
+        console.log(value);
         console.log('OK!')
-        console.log(tbody.rows.length);
-        console.log(tbody.rows[0].cells.length);
+        // console.log(tbody.rows.length);
+        // console.log(tbody.rows[0].cells.length);
         var lines = 1;
         for (var i = 0; i < value.length; i++) {
-            console.log(value[i]);
+            // console.log(value[i]);
             var new_value = value[i].appendChild(document.createElement('td'));
             var input = document.createElement('input')
-            var id = file_name + '_' + tbody.rows[0].cells.length + '_';
+            var id = name_table + '_' + tbody.rows[0].cells.length + '_';
             if (lines != tbody.rows.length) {
                 id += lines;
                 lines = lines + 1;

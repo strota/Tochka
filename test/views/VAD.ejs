@@ -11,30 +11,36 @@
 <% include base_style.ejs%>
 
 
-
 <form action="/VAD" method="post">
     <table id="VAD_first_table" class="table">
         <colgroup>
             <col style="background:#bec2d4;">
         </colgroup>
         <tbody>
-        <% var count = 0; %>
-        <% var count_line = 0; %>
-        <tr>
-            <td>Даты</td>
-            <% for (var key in first_table_body) {
-                if (count % (Object.keys(first_table_body).length / 3) == 0 && count != 0) { %>
-        </tr><tr>
-                    <% if (count_line == 1) { %>
-            <td>> 1 минуты</td>
-            <%
-            count_line += 1;
-            } else { %>
-            <td>Не дозвонились</td>
-            <% }}
-            %>
-            <td><input type="text" class="input_base" name= <%= key%> value=<%=first_table_body[key] %> ></td>
-            <% count +=1; }; %>
+            <% console.log(first_table_body); %>
+            <% var length_line = Object.keys(first_table_body).length / 3; %>
+            <% var iteration = Object.keys(first_table_body).length / length_line; %>
+            <% var count = length_line; %>
+            <% var item = 2; %>
+            <% var names_columns = ['Даты', '> 1 минуты', 'Не дозвонились']; %>
+            
+            <tr><td>Даты</td>
+                <% for (var key in first_table_body) { %>
+                    <% if (count === 0) {
+                        count = length_line; %>
+                        </tr>
+                        <tr>
+                            <td>
+                                <%= names_columns[iteration - item]; %>
+                                <% item = item - 1; %>
+                            </td>
+                    <% } %>
+                    <td>
+                        <% console.log(first_table_body[key]); %>
+                        <input type="text" class="input_base" name= <%= key %> value=<%=first_table_body[key] %> ></td>
+                        <% count = count - 1; %>
+                <% } %>
+            </tr>
         </tbody>
     </table>
     <br>
@@ -42,9 +48,8 @@
 </form>
 <br>
 <form>
-    <input type="button" class="button_circle" value="Добавить столбец" onclick="correction('VAD_first_table')">
+    <input type="button" class="button_circle"  value="Добавить столбец" onclick="correction('VAD_first_table')">
 </form>
-
 
 
 <form action="/VAD" method="post">
@@ -53,23 +58,30 @@
             <col style="background:#bec2d4;">
         </colgroup>
         <tbody>
-        <% var count = 0; %>
-        <% var count_line = 0; %>
-        <tr>
-            <td>Даты</td>
-            <% for (var key in second_table_body) {
-                if (count % (Object.keys(second_table_body).length / 3) == 0 && count != 0) { %>
-        </tr><tr>
-                    <% if (count_line == 1) { %>
-            <td>Среднее время ответа в чате</td>
-            <%
-            count_line += 1;
-            } else { %>
-            <td>Потолок</td>
-            <% }}
-            %>
-            <td><input type="text" class="input_base" name= <%= key%> value=<%=second_table_body[key] %> ></td>
-            <% count +=1; }; %>
+            <% console.log(second_table_body); %>
+            <% var length_line = Object.keys(second_table_body).length / 3; %>
+            <% var iteration = Object.keys(second_table_body).length / length_line; %>
+            <% var count = length_line; %>
+            <% var item = 2; %>
+            <% var names_columns = ['Даты', 'Среднее время ответа в чате', 'Потолок']; %>
+            
+            <tr><td>Даты</td>
+                <% for (var key in second_table_body) { %>
+                    <% if (count === 0) {
+                        count = length_line; %>
+                        </tr>
+                        <tr>
+                            <td>
+                                <%= names_columns[iteration - item]; %>
+                                <% item = item - 1; %>
+                            </td>
+                    <% } %>
+                    <td>
+                        <% console.log(second_table_body[key]); %>
+                        <input type="text" class="input_base" name= <%= key %> value=<%=second_table_body[key] %> ></td>
+                        <% count = count - 1; %>
+                <% } %>
+            </tr>
         </tbody>
     </table>
     <br>
@@ -77,8 +89,9 @@
 </form>
 <br>
 <form>
-    <input type="button" class="button_circle" value="Добавить столбец" onclick="correction('VAD_second_table')">
+    <input type="button" class="button_circle"  value="Добавить столбец" onclick="correction('VAD_second_table')">
 </form>
+
 
 
 

@@ -108,22 +108,7 @@ app.get('/circle/%D0%9E%D0%BF%D0%B5%D1%80%D0%BE', function (request, response) {
             second_table_body: result['second_table'], 
             name_page: 'Opero'});
     });
-    // response.render('Opero');
-    // let t1 = collection.findOne({name: 'Opero_table' });
 })
-// app.get('/circle/%D0%9E%D0%BF%D0%B5%D1%80%D0%BE', function (request, response) {
-//     if(!request.body) return response.sendStatus(400);
-//     var collection = db.collection("Opero_table");
-//     var table_data = request.body;
-//     let t1 = collection.findOne({name: 'Opero_table' });
-//     t1.then((result) => {
-//         response.render('Opero', {first_table_body: 
-//             result['first_table'], 
-//             second_table_body: result['second_table'], 
-//             name_page: 'Opero'});
-//     });
-//     // response.render('Opero');
-// });
 
 app.post("/Opero", urlencodedParser, function (request, response) {
     if(!request.body) return response.sendStatus(400);
@@ -133,18 +118,90 @@ app.post("/Opero", urlencodedParser, function (request, response) {
     // response.render('Opero');
 });
 
+app.get('/circle/%D0%A1%D0%92%D0%A1', function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("SVS_table");
+    var table_data = request.body;
+    let t1 = collection.findOne({name: 'SVS_table' });
+    t1.then((result) => {
+        console.log(result);
+        response.render('SVS', {table_body: result['first_table'], name_page: 'SVS'});
+    });
+    // response.render('SVS');
+});
+
+app.post("/SVS", urlencodedParser, function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("SVS_table");
+    var table_data = request.body;
+    // console.log(table_data);
+    update_database(table_data, collection, 'SVS', response);
+    // response.render('SVS');
+});
 
 app.get('/circle/%D0%9E%D0%A1%D0%9A%D0%A1', function (request, response) {
     response.render('OSKS');
-})
+});
 
 app.post("/OSKS", urlencodedParser, function (request, response) {
     response.render('OSKS');
 });
 
+app.get('/circle/%D0%9E%D0%9F%D0%9A', function (request, response) {
+    response.render('OPK');
+});
 
+app.post("/OPK", urlencodedParser, function (request, response) {
+    console.log('Мы зашли в POST');
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("OPK_table");
+    var table_data = request.body;
+    console.log(table_data);
+    // collection.remove();
+    collection = update_database_two(table_data, collection, 'OPK', response);
+    // response.render('OPK');
+});
 
+app.get('/circle/%D0%A1%D0%97%D0%9A', function (request, response) {
+    // response.render('SZK');
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("SZK_table");
+    var table_data = request.body;
+    let t1 = collection.findOne({name: 'SZK_table' });
+    t1.then((result) => {
+        response.render('SZK', {first_table_body: 
+            result['first_table'], 
+            second_table_body: result['second_table'], 
+            name_page: 'SZK'});
+    });
+});
 
+app.post('/circle/SZK', urlencodedParser, function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("SZK_table");
+    var table_data = request.body;
+    collection = update_database_two(table_data, collection, 'SZK', response);
+});
+
+app.get('/circle/%D0%A0%D0%B5%D0%BA%D1%80%D1%83%D1%82%D0%B8%D0%BD%D0%B3', function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("Rekr_table");
+    var table_data = request.body;
+    let t1 = collection.findOne({name: 'Rekr_table' });
+    t1.then((result) => {
+        response.render('Rekr', {first_table_body: 
+            result['first_table'], 
+            second_table_body: result['second_table'], 
+            name_page: 'Rekr'});
+    });
+});
+
+app.post('/Rekr', urlencodedParser, function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    var collection = db.collection("Rekr_table");
+    var table_data = request.body;
+    collection = update_database_two(table_data, collection, 'Rekr', response);
+});
 
 
 
@@ -156,8 +213,9 @@ app.post("/OSKS", urlencodedParser, function (request, response) {
 
 
 function update_database(table_body, collection, name_page, res) {
+    // collection.remove();
     // table_body = { 'KS_first_table_2_1': '98', 'KS_first_table_2_2': '56', 'KS_first_table_2_3': '356'};
-    // collection.insert({ first_table: table_body, name: name_page + '_table' });
+    collection.insert({ first_table: table_body, name: name_page + '_table' });
     let t1 = collection.findOne({name:name_page + '_table' });
     t1.then((result) => {
         result.first_table = table_body;
@@ -167,13 +225,33 @@ function update_database(table_body, collection, name_page, res) {
 }
 
 function update_database_two(table_body, collection, name_page, response) {
-    // collection.insert({ first_table: table_body, second_table: table_body, name: name_page + '_table' });
+    // collection.remove();
+    // var second_table = {Rekr_second_table_2_1: '0', Rekr_second_table_2_2: '0', Rekr_second_table_2_3: '0', Rekr_second_table_2_4: '0'};
+    // collection.insert({ first_table: table_body, second_table: second_table, name: name_page + '_table' });
     let t1 = collection.findOne({name:name_page + '_table'  });
+    console.log(table_body[0]);
     var name_table = (Object.keys(table_body)[0]).split('_')[1] + '_table';
     t1.then((result) => {
         result[name_table] = table_body;
         collection.save(result, {}, (savedData) => { });
-        console.log(result);
+        console.log(result['first_table']);
+        console.log('Тут всё ок!');
+    //     response.render('OPK', {first_table_body:
+    //     { OPK_first_table_2_1: 'Декабрь',
+    //       OPK_first_table_2_2: 'Декабрь',
+    //       OPK_first_table_2_3: 'Декабрь',
+    //       OPK_first_table_2_4: 'Декабрь',
+    //       OPK_first_table_2_5: 'Декабрь',
+    //       OPK_first_table_2_6: 'Декабрь',
+    //       OPK_first_table_2_7: 'Декабрь' },
+    //    second_table_body:
+    //     { OPK_second_table_2_1: 'Декабрь',
+    //       OPK_second_table_2_2: 'Декабрь',
+    //       OPK_second_table_2_3: 'Декабрь',
+    //       OPK_second_table_2_4: 'Декабрь',
+    //       OPK_second_table_2_5: 'Декабрь',
+    //       OPK_second_table_2_6: 'Декабрь' },
+    //        name_page: name_page })
         response.render(name_page, {first_table_body: 
             result['first_table'], 
             second_table_body: result['second_table'], 

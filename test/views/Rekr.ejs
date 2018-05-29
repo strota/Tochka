@@ -6,61 +6,94 @@
 </head>
 <body>
 <% include header.ejs %>
+<% include base_style.ejs%>
 <div>
     Добро пожаловать в Рекрутинг!
 </div>
-<table id="Rekr_first_table">
-    <tbody>
-    <tr>
-        <td>Дата</td>
-        <td><input type="text" value="09.01-12.01"></td>
-    </tr>
-    <tr>
-        <td>Процент людей, сдавших аттестацию после стажировки</td>
-        <td><input type="text"></td>
-    </tr>
-    <tr>
-        <td>Норма</td>
-        <td>90%</td>
-    </tr>
-    </tbody>
-</table>
+
+<form action="/Rekr" method="post">
+    <table id="Rekr_first_table" class="table">
+        <colgroup>
+            <col style="background:#bec2d4;">
+        </colgroup>
+        <tbody>
+            <% console.log(first_table_body); %>
+            <% var length_line = Object.keys(first_table_body).length / 3; %>
+            <% var iteration = Object.keys(first_table_body).length / length_line; %>
+            <% var count = length_line; %>
+            <% var item = 2; %>
+            <% var names_columns = ['Даты', 'Процент людей, сдавших аттестацию после стажировки', 'Норма']; %>
+            
+            <tr><td>Даты</td>
+                <% for (var key in first_table_body) { %>
+                    <% if (count === 0) {
+                        count = length_line; %>
+                        </tr>
+                        <tr>
+                            <td>
+                                <%= names_columns[iteration - item]; %>
+                                <% item = item - 1; %>
+                            </td>
+                    <% } %>
+                    <td>
+                        <% console.log(first_table_body[key]); %>
+                        <input type="text" class="input_base" name= <%= key %> value=<%=first_table_body[key] %> ></td>
+                        <% count = count - 1; %>
+                <% } %>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" class="button_circle" value="Сохранить таблицу">
+</form>
+<br>
 <form>
-    <input type="button" value="Добавить столбец" onclick="correction('Rekr_first_table')">
+    <input type="button" class="button_circle"  value="Добавить столбец" onclick="correction('Rekr_first_table')">
 </form>
 
-<table id="Rekr_second_table">
-    <tbody>
-    <tr>
-        <td>Ежемесячный процент закрытия вакансий</td>
-        <td>ОО</td>
-        <td>Оперо</td>
-        <td>ОСКС</td>
-        <td>ОПК</td>
-    </tr>
-    <tr>
-        <td>Факт</td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-    </tr>
-    <tr>
-        <td>Недобор</td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-    </tr>
-    <tr>
-        <td>План</td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-    </tr>
-    </tbody>
-</table>
+
+<form action="/Rekr" method="post">
+    <table id="Rekr_second_table" class="table">
+        <colgroup>
+            <col style="background:#bec2d4;">
+        </colgroup>
+        <tbody>
+            <% console.log(second_table_body); %>
+            <% var length_line = Object.keys(second_table_body).length / 4; %>
+            <% var iteration = Object.keys(second_table_body).length / length_line; %>
+            <% var count = length_line; %>
+            <% var item = 3; %>
+            <% var names_columns = ['Ежемесячный процент закрытия вакансий', 'Факт', 'Недобор', 'План']; %>
+            
+            <tr><td>Ежемесячный процент закрытия вакансий</td>
+                <% for (var key in second_table_body) { %>
+                    <% if (count === 0) {
+                        count = length_line; %>
+                        </tr>
+                        <tr>
+                            <td>
+                                <%= names_columns[iteration - item]; %>
+                                <% item = item - 1; %>
+                            </td>
+                    <% } %>
+                    <td>
+                        <% console.log(second_table_body[key]); %>
+                        <input type="text" class="input_base" name= <%= key %> value=<%=second_table_body[key] %> ></td>
+                        <% count = count - 1; %>
+                <% } %>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" class="button_circle" value="Сохранить таблицу">
+</form>
+<br>
+<form>
+    <input type="button" class="button_circle"  value="Добавить столбец" onclick="correction('Rekr_second_table')">
+</form>
+
+
+
 <% include adding_function.ejs %>
 </body>
 </html>

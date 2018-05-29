@@ -6,76 +6,96 @@
 </head>
 <body>
 <% include header.ejs %>
+<% include base_style.ejs%>
 <div>
-    Добро пожаловать в ОПК!
+    Добро пожаловать в OPK!
 </div>
-<table id="OPK_first_table">
-<tbody>
-<tr>
-    <td>Месяц</td>
-    <td><input type="text" value="Декабрь"></td>
-</tr>
-<tr>
-    <td>Общая конверсия ОПК (min 75%)</td>
-    <td><input type="text"></td>
-</tr>
-<tr>
-    <td>Общая конверсия КЭП (min 45%)</td>
-    <td><input type="text"></td>
-</tr>
-<tr>
-    <td>min ОРС</td>
-    <td><input type="text"></td>
-</tr>
-<tr>
-    <td>min КЭП</td>
-    <td><input type="text"></td>
-</tr>
-<tr>
-    <td>% обращений в ОО от отправленных в работу до встречи с МРК (ОРС)</td>
-    <td><input type="text"></td>
-</tr>
-<tr>
-    <td>% обращений в ОО от отправленных в работу до встречи с МРК (КЭП)</td>
-    <td><input type="text"></td>
-</tr>
-</tbody>
-</table>
+
+<form action="/OPK" method="post">
+    <table id="OPK" class="table">
+        <colgroup>
+            <col style="background:#bec2d4;">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>Даты</td>
+                <td><input type="text" class="input_base" name="OPK_first_table_2_1" value="1"></td>
+            </tr>
+            <tr>
+                <td>Среднее время реакции ОРС</td>
+                <td><input type="text" class="input_base" name="OPK_first_table_2_2" value="1"></td>
+            </tr>
+            <tr>
+                <td>Среднее время реакции КЭП</td>
+                <td><input type="text" class="input_base" name="OPK_first_table_2_3" value="1"></td>
+            </tr>
+            <tr>
+                <td>Min</td>
+                <td><input type="text" class="input_base" name="OPK_first_table_2_4" value="1"></td>
+            </tr>
+            <tr>
+                <td>Max</td>
+                <td><input type="text" class="input_base" name="OPK_first_table_2_5" value="1"></td>
+            </tr>
+            <tr>
+                <td>Поступило заявок всего</td>
+                <td><input type="text" class="input_base" name="OPK_first_table_2_6" value="1"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" class="button_circle" value="Сохранить таблицу">
+</form>
+<br>
 <form>
-    <input type="button" value="Добавить столбец" onclick="correction('OPK_first_table')">
+    <input type="button" class="button_circle"  value="Добавить столбец" onclick="correction('OPK_first_table')">
 </form>
 
-<table id="OPK_second_table">
-    <tbody>
-    <tr>
-        <td>Даты</td>
-        <td><input type="text" value="09.01- 12.01"></td>
-    </tr>
-    <tr>
-        <td>Среднее время реакции ОРС</td>
-        <td><input type="text"></td>
-    </tr>
-    <tr>
-        <td>Среднее время реакции КЭП</td>
-        <td><input type="text"></td>
-    </tr>
-    <tr>
-        <td>Min</td>
-        <td><input type="text"></td>
-    </tr>
-    <tr>
-        <td>Max</td>
-        <td><input type="text"></td>
-    </tr>
-    <tr>
-        <td>Поступило заявок всего</td>
-        <td><input type="text"></td>
-    </tr>
-    </tbody>
-</table>
-<form>
-    <input type="button" value="Добавить столбец" onclick="correction('OPK_second_table')">
+
+<form action="/OPK" method="post">
+    <table id="OPK" class="table">
+        <colgroup>
+            <col style="background:#bec2d4;">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>Месяц</td>
+                <td><input type="text" class="input_base" name="OPK_second_table_2_1" value="1"></td>
+            </tr>
+            <tr>
+                <td>Общая конверсия ОПК (min 75%)</td>
+                <td><input type="text" class="input_base" name="OPK_second_table_2_2" value="1"></td>
+            </tr>
+            <tr>
+                <td>Общая конверсия КЭП (min 45%)</td>
+                <td><input type="text" class="input_base" name="OPK_second_table_2_3" value="1"></td>
+            </tr>
+            <tr>
+                <td>min ОРС</td>
+                <td><input type="text" class="input_base" name="OPK_second_table_2_4" value="1"></td>
+            </tr>
+            <tr>
+                <td>min КЭП</td>
+                <td><input type="text" class="input_base" name="OPK_second_table_2_5" value="1"></td>
+            </tr>
+            <tr>
+                <td>% обращений в ОО от отправленных в работу до встречи с МРК (ОРС)</td>
+                <td><input type="text" class="input_base" name="OPK_second_table_2_6" value="1"></td>
+            </tr>
+            <tr>
+                <td>% обращений в ОО от отправленных в работу до встречи с МРК (КЭП)</td>
+                <td><input type="text" class="input_base" name="OPK_second_table_2_7" value="1"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" class="button_circle" value="Сохранить таблицу">
 </form>
-<% include adding_function.ejs %>
+<br>
+<form>
+    <input type="button" class="button_circle"  value="Добавить столбец" onclick="correction('OPK_second_table')">
+</form>
+
+
 </body>
 </html>
